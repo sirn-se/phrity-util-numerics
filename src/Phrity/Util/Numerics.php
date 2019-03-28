@@ -1,7 +1,7 @@
 <?php
 /**
  * File for Numerics library class.
- * @package Phrity\Util\Numerics
+ * @package Phrity > Util > Numerics
  */
 namespace Phrity\Util;
 
