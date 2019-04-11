@@ -136,16 +136,34 @@ class ParseTest extends PHPUnit_Framework_TestCase
     /**
      * Test string input with locale based parsing
      */
-    public function testLocaleParsing()
+    public function testLocaleSvSe()
     {
         $original = setlocale(LC_NUMERIC, 0);
-
         setlocale(LC_NUMERIC, 'sv_SE');
+        $loc = localeconv();
+        if ($loc['thousands_sep'] != ' ') {
+            $this->markTestSkipped('Locale not available, can not test');
+        }
+
         $this->assertSame(12345.0, Numerics::parse('12 345'));
         $this->assertSame(12.345, Numerics::parse('12.345'));
         $this->assertSame(12.345, Numerics::parse('12,345'));
 
+        setlocale(LC_NUMERIC, $original);
+    }
+
+    /**
+     * Test string input with locale based parsing
+     */
+    public function testLocaleEnUs()
+    {
+        $original = setlocale(LC_NUMERIC, 0);
         setlocale(LC_NUMERIC, 'en_US');
+        $loc = localeconv();
+        if ($loc['thousands_sep'] != ',') {
+            $this->markTestSkipped('Locale not available, can not test');
+        }
+
         $this->assertSame(12345.0, Numerics::parse('12 345'));
         $this->assertSame(12.345, Numerics::parse('12.345'));
         $this->assertSame(12345.0, Numerics::parse('12,345'));
