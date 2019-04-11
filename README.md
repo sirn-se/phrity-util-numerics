@@ -3,7 +3,7 @@
 
 # Numerics utility
 
-Utility library for numerics. Float versions of ceil() and floor() with precision.
+Utility library for numerics. Float versions of ceil() and floor() with precision. An open minded numeric parser.
 
 ## Ceil method
 

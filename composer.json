@@ -1,7 +1,7 @@
 {
   "name": "phrity/util-numerics",
   "type": "library",
-  "description": "Utility library for numerics. Float versions of ceil() and floor() with precision. Numeric parser.",
+  "description": "Utility library for numerics. Float versions of ceil() and floor() with precision. Open minded numeric parser.",
   "keywords": ["numbers", "numerics", "float", "ceil", "floor", "precision", "parser"],
   "license": "MIT",
   "authors": [
