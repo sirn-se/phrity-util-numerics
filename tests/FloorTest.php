@@ -1,12 +1,21 @@
 <?php
-
+/**
+ * File for Numerics floor function tests.
+ * @package Phrity > Util > Numerics
+ */
 namespace Phrity\Util;
 
 use Phrity\Util\Numerics;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Numerics floor test class.
+ */
 class FloorTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Test floor with precision
+     */
     public function testFloorWithPrecision()
     {
         $this->assertEquals(1234.5678, Numerics::floor(1234.5678, 4));
@@ -20,6 +29,9 @@ class FloorTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(0.0000, Numerics::floor(1234.5678, -4));
     }
 
+    /**
+     * Test floor compability
+     */
     public function testCombability()
     {
         $this->assertEquals(\floor(1234.5678), Numerics::floor(1234.5678));

@@ -28,3 +28,28 @@ Numerics::floor(1234.5678,  0) // -> 1234.00
 Numerics::floor(1234.5678, -1) // -> 1230.00
 Numerics::floor(1234.5678, -2) // -> 1200.00
 ```
+
+## Parse method
+
+Numeric parser. Parses number by evaluating input rather than using locale or making explicit assumtions. Returns `null` if provided input can not be parsed. Always returns a float on success.
+
+```php
+// Integer and float input
+Numerics::parse(1234.56) // -> 1234.56
+Numerics::parse(1234) // -> 1234.00
+
+// String input
+Numerics::parse('1234.56') // -> 1234.56
+Numerics::parse('1234,56') // -> 1234.56
+Numerics::parse('1 234.56') // -> 1234.56
+Numerics::parse('1 234,56') // -> 1234.56
+Numerics::parse('1,234.56') // -> 1234.56
+Numerics::parse('1.234,56') // -> 1234.56
+
+Numerics::parse(' 1 234.56 ') // -> 1234.56
+Numerics::parse('-1,234.56') // -> -1234.56
+Numerics::parse('+1.234,56') // -> 1234.56
+Numerics::parse('.56') // -> 0.56
+Numerics::parse(',56') // -> 0.56
+
+```

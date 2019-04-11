@@ -1,12 +1,21 @@
 <?php
-
+/**
+ * File for Numerics ceil function tests.
+ * @package Phrity > Util > Numerics
+ */
 namespace Phrity\Util;
 
 use Phrity\Util\Numerics;
 use PHPUnit_Framework_TestCase;
 
+/**
+ * Numerics ceil test class.
+ */
 class CeilTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Test ceil with precision
+     */
     public function testCeilWithPrecision()
     {
         $this->assertEquals(1234.5678, Numerics::ceil(1234.5678, 4));
@@ -20,6 +29,9 @@ class CeilTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(10000.0000, Numerics::ceil(1234.5678, -4));
     }
 
+    /**
+     * Test ceil compability
+     */
     public function testCombability()
     {
         $this->assertEquals(\ceil(1234.5678), Numerics::ceil(1234.5678));
