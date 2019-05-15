@@ -7,15 +7,15 @@ namespace Phrity\Util;
 
 /**
  * Numerics utility class.
- * Provides ceil() and floor() with precision.
+ * Provides ceil(), floor(), rand() with precision, and a numeric parser.
  */
 class Numerics
 {
     /**
-     * Floor function with precision
+     * Floor function with precision.
      * @param  float    $number    The number to apply floor to
      * @param  integer  $precision Precision to apply
-     * @return float    Return floor with precision
+     * @return float               Return floor with precision
      */
     public static function floor($number, $precision = 0)
     {
@@ -24,7 +24,7 @@ class Numerics
     }
 
     /**
-     * Ceil function with precision
+     * Ceil function with precision.
      * @param  float    $number    The number to apply ceil to
      * @param  integer  $precision Precision to apply
      * @return float    Return ceil with precision
@@ -36,7 +36,46 @@ class Numerics
     }
 
     /**
-     * Numeric parser. Identifies decimal/thousand separator from input rather than assumptions.
+     * Random number generator with precision.
+     * @param  float    $min       Lowest result
+     * @param  float    $max       Highest result
+     * @param  integer  $precision Precision to apply
+     * @return float               Return rand with precision
+     */
+    public static function rand($min = 0, $max = null, $precision = 0)
+    {
+        $rand_max = mt_getrandmax();
+        $max = is_null($max) ? mt_getrandmax() : $max;
+        
+        // Decrease precision (if neccesary) to fit rand max
+        do {
+            $f = pow(10, $precision);
+            $real_min = ceil($min * $f);
+            $real_max = floor($max * $f);
+            $precision--;
+
+            // Impossbile to get a number with min/max/precision combination
+            if ($real_min > $real_max) {
+                return null;
+            }
+        } while ($real_max - $real_min > $rand_max);
+
+        return mt_rand($real_min, $real_max) / $f;
+    }
+
+    /**
+     * Get number of decimals in a number.
+     * @param  float $number The number to count decimals on
+     * @return int           Number of decimals
+     */
+    public function precision($number)
+    {
+        return max(0, strlen(strrchr((string)$number, '.')) - 1);
+    }
+
+    /**
+     * Numeric parser.
+     * Identifies decimal/thousand separator from input rather than assumptions.
      * @param  int|float|string $numeric  A numeric representation to parse
      * @return float|null                 Return as float, or null if parsing failed
      */
