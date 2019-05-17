@@ -89,7 +89,20 @@ Numerics::parse('-1,234.56') // -1234.56
 Numerics::parse('+1.234,56') // 1234.56
 Numerics::parse('.56') // 0.56
 Numerics::parse(',56') // 0.56
+```
 
+## Precision method
+
+Count number of relevant decimals in a number.
+
+```php
+// Definition
+public static function precision(float $number) : int
+
+// Examples
+Numerics::precision(12) // 0
+Numerics::precision(12.0) // 0
+Numerics::precision(12.34) // 2
 ```
 
 ## Versions

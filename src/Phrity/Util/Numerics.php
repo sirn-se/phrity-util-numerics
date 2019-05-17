@@ -40,13 +40,13 @@ class Numerics
      * @param  float    $min       Lowest result
      * @param  float    $max       Highest result
      * @param  integer  $precision Precision to use
-     * @return float               Return rand with precision
+     * @return float               Random number with precision
      */
     public static function rand($min = 0, $max = null, $precision = 0)
     {
         $rand_max = mt_getrandmax();
-        $max = is_null($max) ? mt_getrandmax() : $max;
-        
+        $max = is_null($max) ? $rand_max : $max;
+
         do {
             // Decrease precision (if neccesary) to fit rand max
             $f = pow(10, $precision);
