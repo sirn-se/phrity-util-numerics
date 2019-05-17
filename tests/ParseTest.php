@@ -14,6 +14,14 @@ use PHPUnit_Framework_TestCase;
 class ParseTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * Set up for all tests
+     */
+    public function setUp()
+    {
+        error_reporting(-1);
+    }
+    
+    /**
      * Test integer and float input
      */
     public function testIntegerAndFloat()
@@ -93,7 +101,7 @@ class ParseTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * Test string input in malformed bur parsable format
+     * Test string input in malformed but parsable format
      */
     public function testApproximations()
     {

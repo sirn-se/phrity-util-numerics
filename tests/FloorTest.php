@@ -14,6 +14,14 @@ use PHPUnit_Framework_TestCase;
 class FloorTest extends PHPUnit_Framework_TestCase
 {
     /**
+     * Set up for all tests
+     */
+    public function setUp()
+    {
+        error_reporting(-1);
+    }
+
+    /**
      * Test floor with precision
      */
     public function testFloorWithPrecision()
@@ -34,13 +42,13 @@ class FloorTest extends PHPUnit_Framework_TestCase
      */
     public function testCombability()
     {
-        $this->assertEquals(\floor(1234.5678), Numerics::floor(1234.5678));
-        $this->assertEquals(\floor(1234.5680), Numerics::floor(1234.5680));
-        $this->assertEquals(\floor(1234.5700), Numerics::floor(1234.5700));
-        $this->assertEquals(\floor(1234.6000), Numerics::floor(1234.6000));
-        $this->assertEquals(\floor(1235.0000), Numerics::floor(1235.0000));
-        $this->assertEquals(\floor(1240.0000), Numerics::floor(1240.0000));
-        $this->assertEquals(\floor(1300.0000), Numerics::floor(1300.0000));
-        $this->assertEquals(\floor(1300.0000), Numerics::floor(1300.0000));
+        $this->assertEquals(floor(1234.5678), Numerics::floor(1234.5678));
+        $this->assertEquals(floor(1234.5680), Numerics::floor(1234.5680));
+        $this->assertEquals(floor(1234.5700), Numerics::floor(1234.5700));
+        $this->assertEquals(floor(1234.6000), Numerics::floor(1234.6000));
+        $this->assertEquals(floor(1235.0000), Numerics::floor(1235.0000));
+        $this->assertEquals(floor(1240.0000), Numerics::floor(1240.0000));
+        $this->assertEquals(floor(1300.0000), Numerics::floor(1300.0000));
+        $this->assertEquals(floor(1300.0000), Numerics::floor(1300.0000));
     }
 }

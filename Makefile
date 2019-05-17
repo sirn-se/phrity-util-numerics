@@ -13,10 +13,6 @@ deps-update: composer.phar
 	./composer.phar self-update
 	./composer.phar --no-interaction update
 
-# Updates dependencies according to lock file, production optimized
-deps-prod: composer.phar
-	./composer.phar --no-interaction install --no-dev --optimize-autoloader
-
 
 # TESTS AND REPORTS
 
@@ -37,6 +33,7 @@ test: composer.lock
 coverage: composer.lock
 	./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 	./vendor/bin/php-coveralls -v
+
 
 # INITIAL INSTALL
 

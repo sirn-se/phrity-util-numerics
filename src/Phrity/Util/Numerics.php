@@ -27,7 +27,7 @@ class Numerics
      * Ceil function with precision.
      * @param  float    $number    The number to apply ceil to
      * @param  integer  $precision Precision to apply
-     * @return float    Return ceil with precision
+     * @return float               Return ceil with precision
      */
     public static function ceil($number, $precision = 0)
     {
@@ -36,10 +36,10 @@ class Numerics
     }
 
     /**
-     * Random number generator with precision.
+     * Random float number generator with precision.
      * @param  float    $min       Lowest result
      * @param  float    $max       Highest result
-     * @param  integer  $precision Precision to apply
+     * @param  integer  $precision Precision to use
      * @return float               Return rand with precision
      */
     public static function rand($min = 0, $max = null, $precision = 0)
@@ -47,14 +47,14 @@ class Numerics
         $rand_max = mt_getrandmax();
         $max = is_null($max) ? mt_getrandmax() : $max;
         
-        // Decrease precision (if neccesary) to fit rand max
         do {
+            // Decrease precision (if neccesary) to fit rand max
             $f = pow(10, $precision);
             $real_min = ceil($min * $f);
             $real_max = floor($max * $f);
             $precision--;
 
-            // Impossbile to get a number with min/max/precision combination
+            // Impossbile to get a number using provided min/max/precision combination
             if ($real_min > $real_max) {
                 return null;
             }
@@ -64,12 +64,15 @@ class Numerics
     }
 
     /**
-     * Get number of decimals in a number.
+     * Count number of relevant decimals in a number.
      * @param  float $number The number to count decimals on
-     * @return int           Number of decimals
+     * @return int|null      Number of decimals, or null if not a number
      */
-    public function precision($number)
+    public static function precision($number)
     {
+        if (!is_float($number) && !is_int($number)) {
+            return null;
+        }
         return max(0, strlen(strrchr((string)$number, '.')) - 1);
     }
 
