@@ -13,7 +13,7 @@ class Numerics
 {
     /**
      * Floor function with precision.
-     * @param  float    $number    The number to apply floor to
+     * @param  number   $number    The number to apply floor to
      * @param  integer  $precision Precision to apply
      * @return float               Return floor with precision
      */
@@ -25,7 +25,7 @@ class Numerics
 
     /**
      * Ceil function with precision.
-     * @param  float    $number    The number to apply ceil to
+     * @param  number   $number    The number to apply ceil to
      * @param  integer  $precision Precision to apply
      * @return float               Return ceil with precision
      */
@@ -37,10 +37,10 @@ class Numerics
 
     /**
      * Random float number generator with precision.
-     * @param  float    $min       Lowest result
-     * @param  float    $max       Highest result
+     * @param  number   $min       Lowest result
+     * @param  number   $max       Highest result
      * @param  integer  $precision Precision to use
-     * @return float               Random number with precision
+     * @return float               Random number with precision (null if not solvable)
      */
     public static function rand($min = 0, $max = null, $precision = 0)
     {
@@ -65,8 +65,8 @@ class Numerics
 
     /**
      * Count number of relevant decimals in a number.
-     * @param  float $number The number to count decimals on
-     * @return int|null      Number of decimals, or null if not a number
+     * @param  number $number The number to count decimals on
+     * @return int            Number of decimals (null if input is not a number)
      */
     public static function precision($number)
     {
@@ -79,8 +79,8 @@ class Numerics
     /**
      * Numeric parser.
      * Identifies decimal/thousand separator from input rather than assumptions.
-     * @param  int|float|string $numeric  A numeric representation to parse
-     * @return float|null                 Return as float, or null if parsing failed
+     * @param  mixed $numeric  A numeric representation to parse
+     * @return float           Return as float (null if parsing failed)
      */
     public static function parse($numeric)
     {
@@ -122,7 +122,7 @@ class Numerics
             }
         }
 
-        // If there is a period and a comma, the first one is the thousand separator - remove
+        // If there is a period and a comma, the first is the thousand separator - remove
         if (preg_match_all('/([.,])([0-9]{3}|$)/', $numeric, $matches) > 1) {
             $numeric = str_replace($matches[1][0], '', $numeric);
             $ts_found = true;
