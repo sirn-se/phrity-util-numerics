@@ -2,7 +2,7 @@
 
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
-        <testsuite name="Phrity numerics tests">
+        <testsuite name="Phrity Util/Numerics tests">
             <directory>./tests/</directory>
         </testsuite>
     </testsuites>

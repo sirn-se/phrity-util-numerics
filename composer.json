@@ -1,13 +1,15 @@
 {
   "name": "phrity/util-numerics",
   "type": "library",
-  "description": "Utility library for numerics. Float versions of ceil() and floor() with precision. Open minded numeric parser.",
+  "description": "Utility library for numerics. Float versions of ceil(), floor() and rand() with precision. Open minded numeric parser.",
+  "homepage": "https://phrity.sirn.se/util-numerics",
   "keywords": ["numbers", "numerics", "float", "ceil", "floor", "precision", "parser"],
   "license": "MIT",
   "authors": [
     {
       "name": "Sören Jensen",
-      "email": "sirn@sirn.se"
+      "email": "sirn@sirn.se",
+      "homepage": "https://phrity.sirn.se"
     }
   ],
   "autoload": {
