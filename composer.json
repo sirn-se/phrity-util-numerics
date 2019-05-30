@@ -29,6 +29,8 @@
     "phpdocumentor/phpdocumentor": "2.*",
     "phpunit/phpunit": "5.*",
     "php-coveralls/php-coveralls": "2.*",
-    "squizlabs/php_codesniffer": "3.*"
+    "squizlabs/php_codesniffer": "3.*",
+    "jms/metadata": "1.*",
+    "jms/serializer": "1.*"
   }
 }

@@ -104,6 +104,6 @@ Numerics::precision(12.34) // 2
 
 ## Versions
 
-* `1.0` - `ceil()` and `floor()` methods
-* `1.1` - `parse()` method
 * `1.2` - `rand()` and `precision()` methods
+* `1.1` - `parse()` method
+* `1.0` - `ceil()` and `floor()` methods
