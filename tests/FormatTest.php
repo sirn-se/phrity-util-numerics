@@ -39,7 +39,7 @@ class FormatTest extends TestCase
     /**
      * Test swedish format
      */
-    public function testSwedishFormat()
+    public function testSvSeFormat()
     {
         $numerics = new Numerics();
         $numerics->setLocale('sv_SE');
@@ -50,10 +50,10 @@ class FormatTest extends TestCase
     /**
      * Test english format
      */
-    public function testEnglishFormat()
+    public function testEnUsFormat()
     {
         $numerics = new Numerics();
-        $numerics->setLocale('en_GB');
+        $numerics->setLocale('en_US');
 
         $this->assertEquals('1,234.56', $numerics->format(1234.56, 2));
     }

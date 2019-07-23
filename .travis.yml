@@ -5,6 +5,12 @@ php:
   - 7.2
   - 7.1
 
+addons:
+    apt:
+        packages:
+            - language-pack-en
+            - language-pack-sv
+
 before_script:
   - make deps-install
 
