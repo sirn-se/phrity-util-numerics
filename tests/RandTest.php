@@ -6,12 +6,12 @@
 namespace Phrity\Util;
 
 use Phrity\Util\Numerics;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Numerics rand test class.
  */
-class RandTest extends PHPUnit_Framework_TestCase
+class RandTest extends TestCase
 {
     /**
      * Set up for all tests
@@ -26,23 +26,25 @@ class RandTest extends PHPUnit_Framework_TestCase
      */
     public function testRangeRand()
     {
-        $rand = Numerics::rand(0, 2);
+        $numerics = new Numerics();
+
+        $rand = $numerics->rand(0, 2);
         $this->assertGreaterThanOrEqual(0, $rand);
         $this->assertLessThanOrEqual(2, $rand);
 
-        $rand = Numerics::rand(-1, 1);
+        $rand = $numerics->rand(-1, 1);
         $this->assertGreaterThanOrEqual(-1, $rand);
         $this->assertLessThanOrEqual(1, $rand);
 
-        $rand = Numerics::rand(0.4, 0.6, 1);
+        $rand = $numerics->rand(0.4, 0.6, 1);
         $this->assertGreaterThanOrEqual(0.4, $rand);
         $this->assertLessThanOrEqual(0.6, $rand);
 
-        $rand = Numerics::rand(0.04, 0.06, 2);
+        $rand = $numerics->rand(0.04, 0.06, 2);
         $this->assertGreaterThanOrEqual(0.04, $rand);
         $this->assertLessThanOrEqual(0.06, $rand);
 
-        $rand = Numerics::rand(-0.1, 0.1, 1);
+        $rand = $numerics->rand(-0.1, 0.1, 1);
         $this->assertGreaterThanOrEqual(-0.1, $rand);
         $this->assertLessThanOrEqual(0.1, $rand);
     }
@@ -52,17 +54,18 @@ class RandTest extends PHPUnit_Framework_TestCase
      */
     public function testRandMax()
     {
+        $numerics = new Numerics();
         $rand_max = mt_getrandmax();
 
-        $rand = Numerics::rand();
+        $rand = $numerics->rand();
         $this->assertGreaterThanOrEqual(0, $rand);
         $this->assertLessThanOrEqual($rand_max, $rand);
 
-        $rand = Numerics::rand(-$rand_max, 0);
+        $rand = $numerics->rand(-$rand_max, 0);
         $this->assertGreaterThanOrEqual(-$rand_max, $rand);
         $this->assertLessThanOrEqual(0, $rand);
 
-        $rand = Numerics::rand($rand_max, $rand_max * 2, 0);
+        $rand = $numerics->rand($rand_max, $rand_max * 2, 0);
         $this->assertGreaterThanOrEqual($rand_max, $rand);
         $this->assertLessThanOrEqual($rand_max * 2, $rand);
     }
@@ -72,25 +75,29 @@ class RandTest extends PHPUnit_Framework_TestCase
      */
     public function testLargeNumbers()
     {
-        $rand = Numerics::rand(0, 1234567890, 8);
+        $numerics = new Numerics();
+
+        $rand = $numerics->rand(0, 1234567890, 8);
         $this->assertGreaterThanOrEqual(0, $rand);
         $this->assertLessThanOrEqual(1234567890, $rand);
 
-        $rand = Numerics::rand(0, 1234567890, 32);
+        $rand = $numerics->rand(0, 1234567890, 32);
         $this->assertGreaterThanOrEqual(0, $rand);
         $this->assertLessThanOrEqual(1234567890, $rand);
     }
-    
+
     /**
      * Test single possible returns
      */
     public function testSingulars()
     {
-        $this->assertEquals(100, Numerics::rand(1, 199, -2));
-        $this->assertEquals(10, Numerics::rand(1, 19, -1));
-        $this->assertEquals(1, Numerics::rand(0.1, 1.9, 0));
-        $this->assertEquals(0.1, Numerics::rand(0.01, 0.19, 1));
-        $this->assertEquals(0.01, Numerics::rand(0.001, 0.019, 2));
+        $numerics = new Numerics();
+
+        $this->assertEquals(100, $numerics->rand(1, 199, -2));
+        $this->assertEquals(10, $numerics->rand(1, 19, -1));
+        $this->assertEquals(1, $numerics->rand(0.1, 1.9, 0));
+        $this->assertEquals(0.1, $numerics->rand(0.01, 0.19, 1));
+        $this->assertEquals(0.01, $numerics->rand(0.001, 0.019, 2));
     }
 
     /**
@@ -98,8 +105,40 @@ class RandTest extends PHPUnit_Framework_TestCase
      */
     public function testInvalidRange()
     {
-        $this->assertNull(Numerics::rand(10, 9));
-        $this->assertNull(Numerics::rand(0.1, 0.9, 0));
-        $this->assertNull(Numerics::rand(0.01, 0.09, 1));
+        $numerics = new Numerics();
+
+        $this->assertNull($numerics->rand(10, 9));
+        $this->assertNull($numerics->rand(0.1, 0.9, 0));
+        $this->assertNull($numerics->rand(0.01, 0.09, 1));
+    }
+
+    /**
+     * Test invalid input type on min argument
+     * @expectedException TypeError
+     */
+    public function testInvalidMinInput()
+    {
+        $numerics = new Numerics();
+        $numerics->rand('should fail', 1.2, 0);
+    }
+
+    /**
+     * Test invalid input type on max argument
+     * @expectedException TypeError
+     */
+    public function testInvalidMaxInput()
+    {
+        $numerics = new Numerics();
+        $numerics->rand(1.2, 'should fail', 0);
+    }
+
+    /**
+     * Test invalid input type on precision argument
+     * @expectedException TypeError
+     */
+    public function testInvalidPrecisionInput()
+    {
+        $numerics = new Numerics();
+        $numerics->rand(1.2, 3.4, 'should fail');
     }
 }
