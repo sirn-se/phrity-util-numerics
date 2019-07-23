@@ -68,6 +68,17 @@ class Numerics
     }
 
     /**
+     * Round function with precision.
+     * @param  number   $number    The number to apply round to
+     * @param  integer  $precision Precision to apply
+     * @return float               Return round with precision
+     */
+    public function round(float $number, int $precision = null): float
+    {
+        return round($number, $precision ?? $this->precision);
+    }
+
+    /**
      * Random float number generator with precision.
      * @param  number   $min       Lowest result
      * @param  number   $max       Highest result
