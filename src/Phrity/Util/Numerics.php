@@ -1,6 +1,4 @@
 <?php
-declare(strict_types=1);
-
 /**
  * File for Numerics utility class.
  * @package Phrity > Util > Numerics
@@ -14,12 +12,35 @@ namespace Phrity\Util;
  */
 class Numerics
 {
-
+    /**
+     * @var int $precision Default precision
+     */
     private $precision;
+    /**
+     * @var array $localization Localization data
+     */
+    private $localization;
 
+    /**
+     * Constructor for this class
+     * @param integer $precision Default precision
+     */
     public function __construct(int $precision = 0)
     {
         $this->precision = $precision;
+        $this->localization = localeconv();
+    }
+
+    /**
+     * Set locale on instance, used for format and parse method
+     * @param  string $locale The locale to use as string
+     */
+    public function setLocale(string $locale): void
+    {
+        $original_locale = setlocale(LC_NUMERIC, 0);
+        setlocale(LC_NUMERIC, $locale);
+        $this->localization = localeconv();
+        setlocale(LC_NUMERIC, $original_locale);
     }
 
     /**
@@ -145,8 +166,7 @@ class Numerics
 
         // This is the trickiest case - use loacale as a final resort
         if (!$ts_found && preg_match('/^[0-9]{1,3}[,][0-9]{3}$/', $numeric) > 0) {
-            $loc = localeconv();
-            $numeric = str_replace($loc['thousands_sep'], '', $numeric);
+            $numeric = str_replace($this->localization['thousands_sep'], '', $numeric);
         }
 
         // Remove remianing white-spaces
@@ -154,5 +174,21 @@ class Numerics
 
         // Any remaining comma is a decimal separator
         return (float)str_replace(',', '.', $numeric);
+    }
+
+    /**
+     * Numeric formatter.
+     * @param  number  $number    The number to count decimals on
+     * @param  integer $precision Precision to use
+     * @return string             Numeric string
+     */
+    public function format(float $number, int $precision = null): string
+    {
+        return number_format(
+            $number,
+            $precision ?? $this->precision,
+            $this->localization['decimal_point'],
+            $this->localization['thousands_sep']
+        );
     }
 }
