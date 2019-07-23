@@ -42,7 +42,7 @@ class FormatTest extends TestCase
     public function testSvSeFormat()
     {
         $numerics = new Numerics();
-        $numerics->setLocale('sv_SE');
+        $numerics->setLocale('sv_SE.utf8');
 
         $this->assertEquals('1 234,56', $numerics->format(1234.56, 2));
     }
