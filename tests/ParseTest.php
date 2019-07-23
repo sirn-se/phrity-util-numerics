@@ -155,7 +155,7 @@ class ParseTest extends TestCase
     public function testLocaleSvSe()
     {
         $numerics = new Numerics();
-        $numerics->setLocale('sv_SE');
+        $numerics->setLocale('sv_SE.utf8');
 
         $this->assertSame(12345.0, $numerics->parse('12 345'));
         $this->assertSame(12.345, $numerics->parse('12.345'));
@@ -168,7 +168,7 @@ class ParseTest extends TestCase
     public function testLocaleEnUs()
     {
         $numerics = new Numerics();
-        $numerics->setLocale('en_US');
+        $numerics->setLocale('en_US.utf8');
 
         $this->assertSame(12345.0, $numerics->parse('12 345'));
         $this->assertSame(12.345, $numerics->parse('12.345'));

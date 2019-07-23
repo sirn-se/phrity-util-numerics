@@ -53,7 +53,7 @@ class FormatTest extends TestCase
     public function testEnUsFormat()
     {
         $numerics = new Numerics();
-        $numerics->setLocale('en_US');
+        $numerics->setLocale('en_US.utf8');
 
         $this->assertEquals('1,234.56', $numerics->format(1234.56, 2));
     }
