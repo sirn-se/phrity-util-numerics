@@ -1,25 +1,57 @@
 <?php
 /**
- * File for Numerics library class.
+ * File for Numerics utility class.
  * @package Phrity > Util > Numerics
  */
 namespace Phrity\Util;
 
 /**
  * Numerics utility class.
- * Provides ceil(), floor(), rand() with precision, and a numeric parser.
+ * Float versions of ceil(), floor() and rand() with precision.
+ * Open minded numeric parser and formatter.
  */
 class Numerics
 {
+    /**
+     * @var int $precision Default precision
+     */
+    private $precision;
+    /**
+     * @var array $localization Localization data
+     */
+    private $localization;
+
+    /**
+     * Constructor for this class
+     * @param integer $precision Default precision
+     */
+    public function __construct(int $precision = 0)
+    {
+        $this->precision = $precision;
+        $this->localization = localeconv();
+    }
+
+    /**
+     * Set locale on instance, used for format and parse method
+     * @param  string $locale The locale to use as string
+     */
+    public function setLocale(string $locale): void
+    {
+        $original_locale = setlocale(LC_NUMERIC, 0);
+        setlocale(LC_NUMERIC, $locale);
+        $this->localization = localeconv();
+        setlocale(LC_NUMERIC, $original_locale);
+    }
+
     /**
      * Floor function with precision.
      * @param  number   $number    The number to apply floor to
      * @param  integer  $precision Precision to apply
      * @return float               Return floor with precision
      */
-    public static function floor($number, $precision = 0)
+    public function floor(float $number, int $precision = null): float
     {
-        $f = pow(10, $precision);
+        $f = pow(10, $precision ?? $this->precision);
         return floor($number * $f) / $f;
     }
 
@@ -29,10 +61,21 @@ class Numerics
      * @param  integer  $precision Precision to apply
      * @return float               Return ceil with precision
      */
-    public static function ceil($number, $precision = 0)
+    public function ceil(float $number, int $precision = null): float
     {
-        $f = pow(10, $precision);
+        $f = pow(10, $precision ?? $this->precision);
         return ceil($number * $f) / $f;
+    }
+
+    /**
+     * Round function with precision.
+     * @param  number   $number    The number to apply round to
+     * @param  integer  $precision Precision to apply
+     * @return float               Return round with precision
+     */
+    public function round(float $number, int $precision = null): float
+    {
+        return round($number, $precision ?? $this->precision);
     }
 
     /**
@@ -42,10 +85,11 @@ class Numerics
      * @param  integer  $precision Precision to use
      * @return float               Random number with precision (null if not solvable)
      */
-    public static function rand($min = 0, $max = null, $precision = 0)
+    public function rand(float $min = 0, float $max = null, int $precision = null): ?float
     {
         $rand_max = mt_getrandmax();
         $max = is_null($max) ? $rand_max : $max;
+        $precision = $precision ?? $this->precision;
 
         do {
             // Decrease precision (if neccesary) to fit rand max
@@ -60,20 +104,18 @@ class Numerics
             }
         } while ($real_max - $real_min > $rand_max);
 
-        return mt_rand($real_min, $real_max) / $f;
+        return mt_rand((int)$real_min, (int)$real_max) / $f;
     }
 
     /**
      * Count number of relevant decimals in a number.
      * @param  number $number The number to count decimals on
-     * @return int            Number of decimals (null if input is not a number)
+     * @return int            Number of decimals
      */
-    public static function precision($number)
+    public function precision(float $number): int
     {
-        if (!is_float($number) && !is_int($number)) {
-            return null;
-        }
-        return max(0, strlen(strrchr((string)$number, '.')) - 1);
+        $pos = strrchr((string)$number, '.');
+        return $pos ? max(0, strlen($pos) - 1) : 0;
     }
 
     /**
@@ -82,7 +124,7 @@ class Numerics
      * @param  mixed $numeric  A numeric representation to parse
      * @return float           Return as float (null if parsing failed)
      */
-    public static function parse($numeric)
+    public function parse($numeric): ?float
     {
         $ts_found = false;
 
@@ -135,8 +177,7 @@ class Numerics
 
         // This is the trickiest case - use loacale as a final resort
         if (!$ts_found && preg_match('/^[0-9]{1,3}[,][0-9]{3}$/', $numeric) > 0) {
-            $loc = localeconv();
-            $numeric = str_replace($loc['thousands_sep'], '', $numeric);
+            $numeric = str_replace($this->localization['thousands_sep'], '', $numeric);
         }
 
         // Remove remianing white-spaces
@@ -144,5 +185,21 @@ class Numerics
 
         // Any remaining comma is a decimal separator
         return (float)str_replace(',', '.', $numeric);
+    }
+
+    /**
+     * Numeric formatter.
+     * @param  number  $number    The number to count decimals on
+     * @param  integer $precision Precision to use
+     * @return string             Numeric string
+     */
+    public function format(float $number, int $precision = null): string
+    {
+        return number_format(
+            $number,
+            $precision ?? $this->precision,
+            $this->localization['decimal_point'],
+            $this->localization['thousands_sep']
+        );
     }
 }

@@ -1,9 +1,9 @@
 {
   "name": "phrity/util-numerics",
   "type": "library",
-  "description": "Utility library for numerics. Float versions of ceil(), floor() and rand() with precision. Open minded numeric parser.",
+  "description": "Utility library for numerics. Float versions of ceil(), floor() and rand() with precision. Open minded numeric parser and formatter.",
   "homepage": "https://phrity.sirn.se/util-numerics",
-  "keywords": ["numbers", "numerics", "float", "ceil", "floor", "precision", "parser"],
+  "keywords": ["numbers", "numerics", "float", "ceil", "floor", "precision", "parse", "format"],
   "license": "MIT",
   "authors": [
     {
@@ -23,11 +23,11 @@
     }
   },
   "require": {
-    "php": ">=5.6"
+    "php": "^7.1"
   },
   "require-dev": {
     "phpdocumentor/phpdocumentor": "2.*",
-    "phpunit/phpunit": "5.*",
+    "phpunit/phpunit": "7.*",
     "php-coveralls/php-coveralls": "2.*",
     "squizlabs/php_codesniffer": "3.*",
     "jms/metadata": "1.*",
