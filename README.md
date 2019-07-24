@@ -23,14 +23,14 @@ Phrity\Util\Numerics {
 
     /* Methods */
     public __construct(int $precision = 0)
-    public setLocale(string $locale) : void
     public ceil(number $number, int $precision = null) : float
     public floor(number $number, int $precision = null) : float
     public round(number $number, int $precision = null) : float
-    public rand(number $min = 0, number $max = 0, int $precision = null) : float
-    public precision(number $number) : int
     public parse(mixed $numeric) : float
     public format(number $number, int $precision = null) : string
+    public rand(number $min = 0, number $max = 0, int $precision = null) : float
+    public precision(number $number) : int
+    public setLocale(string $locale) : void
 }
 ```
 
@@ -43,18 +43,9 @@ $numerics = new Numerics(); // Default precision is 0
 $numerics = new Numerics(3); // Default precision is 3
 ```
 
-### setLocale method
-
-Affects the format() methid and fringe cases in parse() method. If not set, current locale will be used in these methods.
-
-```php
-$numerics = new Numerics();
-$numerics->setLocale('sv_SE'); // Set to Swedish
-```
-
 ### Ceil method
 
-Round fractions up, according to precision specifier. A precision of `0` corresponds to PHP `ceil()` function, except it returns `float` instead of `integer`. Precision can also be negative.
+Round fractions up, according to precision specifier. A precision of `0` corresponds to PHP `ceil()` function. Precision can also be negative.
 
 ```php
 // Precison specified on each call
@@ -73,7 +64,7 @@ $numerics->ceil(1234.5678, 0) // 1235.00
 
 ### Floor method
 
-Round fractions down, according to precision specifier. A precision of `0` corresponds to PHP `floor()` function, except it returns `float` instead of `integer`. Precision can also be negative.
+Round fractions down, according to precision specifier. A precision of `0` corresponds to PHP `floor()` function. Precision can also be negative.
 
 ```php
 // Precison specified on each call
@@ -90,23 +81,23 @@ $numerics->floor(1234.5678) // 1234.56
 $numerics->floor(1234.5678, 0) // 1234.00
 ```
 
-### Rand method
+### Round method
 
-Float random number with precision. Precision can also be negative. Returns `float`, or `null` if impossible to generate result.
+Standard round, according to precision specifier. Precision can also be negative.
 
 ```php
 // Precison specified on each call
 $numerics = new Numerics();
-$numerics->rand(0, 10) // 0.0 … 10.0
-$numerics->rand(0, 100, 2) // 0.00 … 100.00
-$numerics->rand(-100, 100, 4) // -100.0000 … 100.0000
-$numerics->rand(0.01, 0.97, 4) // 0.0100 … 0.9700
-$numerics->rand(9, 11, -1) // 10.0
-$numerics->rand(90, 110, -2) // 100.0
+$numerics->round(1234.5678,  2) // 1234.57
+$numerics->round(1234.5678,  1) // 1234.60
+$numerics->round(1234.5678,  0) // 1235.00
+$numerics->round(1234.5678, -1) // 1230.00
+$numerics->round(1234.5678, -2) // 1200.00
 
 // Precison specified as default, override is possible
 $numerics = new Numerics(2);
-$numerics->rand(0, 100) // 0.00 … 100.00
+$numerics->round(1234.5678) // 1234.57
+$numerics->round(1234.5678, 0) // 1235.00
 ```
 
 ### Parse method
@@ -134,6 +125,8 @@ $numerics->parse('-1,234.56') // -1234.56
 $numerics->parse('+1.234,56') // 1234.56
 $numerics->parse('.56') // 0.56
 $numerics->parse(',56') // 0.56
+$numerics->parse('12.') // 12.0
+$numerics->parse('12,') // 12.0
 
 // Locale support for fringe cases
 $numerics->setLocale('sv_SE');
@@ -160,6 +153,25 @@ $numerics->format(1234, 2) // "1,234.00"
 $numerics->format(1234.5678, 0) // "1,234"
 ```
 
+### Rand method
+
+Float random number with precision. Precision can also be negative. Returns `float`, or `null` if impossible to generate result.
+
+```php
+// Precison specified on each call
+$numerics = new Numerics();
+$numerics->rand(0, 10) // 0.0 … 10.0
+$numerics->rand(0, 100, 2) // 0.00 … 100.00
+$numerics->rand(-100, 100, 4) // -100.0000 … 100.0000
+$numerics->rand(0.01, 0.97, 4) // 0.0100 … 0.9700
+$numerics->rand(9, 11, -1) // 10.0
+$numerics->rand(90, 110, -2) // 100.0
+
+// Precison specified as default, override is possible
+$numerics = new Numerics(2);
+$numerics->rand(0, 100) // 0.00 … 100.00
+```
+
 ### Precision method
 
 Count number of relevant decimals in a number.
@@ -169,6 +181,15 @@ $numerics = new Numerics();
 $numerics->precision(12) // 0
 $numerics->precision(12.0) // 0
 $numerics->precision(12.34) // 2
+```
+
+### setLocale method
+
+Affects the `format()` method and fringe case in `parse()` method. If not set, current locale will be used in these methods.
+
+```php
+$numerics = new Numerics();
+$numerics->setLocale('sv_SE'); // Set to Swedish
 ```
 
 ## Versions
