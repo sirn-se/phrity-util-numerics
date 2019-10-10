@@ -70,6 +70,9 @@ class ParseTest extends TestCase
         $this->assertSame(-1234567.890, $numerics->parse('-1 234 567,890'));
         $this->assertSame(-1234567.890, $numerics->parse('-1,234,567.890'));
         $this->assertSame(-1234567.890, $numerics->parse('-1.234.567,890'));
+
+        $this->assertSame(1234.56, $numerics->parse('1,234.56'));
+        $this->assertSame(1234.56, $numerics->parse('1.234,56'));
     }
 
     /**

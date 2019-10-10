@@ -165,7 +165,7 @@ class Numerics
         }
 
         // If there is a period and a comma, the first is the thousand separator - remove
-        if (preg_match_all('/([.,])([0-9]{3}|$)/', $numeric, $matches) > 1) {
+        if (preg_match_all('/([.,])/', $numeric, $matches) > 1) {
             $numeric = str_replace($matches[1][0], '', $numeric);
             $ts_found = true;
         }
