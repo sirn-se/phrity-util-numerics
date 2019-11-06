@@ -59,7 +59,7 @@ class FormatTest extends TestCase
     }
 
     /**
-     * Test preciseions
+     * Test precisions
      */
     public function testPrecisions()
     {
