@@ -59,6 +59,21 @@ class FormatTest extends TestCase
     }
 
     /**
+     * Test preciseions
+     */
+    public function testPrecisions()
+    {
+        $numerics = new Numerics();
+        $this->assertEquals('1234.57', $numerics->format(1234.5678, 2));
+
+        $numerics = new Numerics(3);
+        $this->assertEquals('1234.568', $numerics->format(1234.5678));
+
+        $numerics = new Numerics();
+        $this->assertEquals('1234.5678', $numerics->format(1234.5678));
+    }
+
+    /**
      * Test invalid input type on number argument
      * @expectedException TypeError
      */
