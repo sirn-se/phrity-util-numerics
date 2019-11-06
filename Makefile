@@ -20,11 +20,6 @@ deps-update: composer.phar
 cs-check: composer.lock
 	./vendor/bin/phpcs --standard=PSR1,PSR2 --encoding=UTF-8 --report=full --colors src tests
 
-# Check inline documentation
-docs-check: composer.lock
-	./vendor/bin/phpdoc --validate -d src,tests -t phpdoc-temp
-	rm -rf phpdoc-temp
-
 # Run tests
 test: composer.lock
 	./vendor/bin/phpunit

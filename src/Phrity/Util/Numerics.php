@@ -25,7 +25,7 @@ class Numerics
      * Constructor for this class
      * @param integer $precision Default precision
      */
-    public function __construct(int $precision = 0)
+    public function __construct(int $precision = null)
     {
         $this->precision = $precision;
         $this->localization = localeconv();
@@ -51,7 +51,7 @@ class Numerics
      */
     public function floor(float $number, int $precision = null): float
     {
-        $f = pow(10, $precision ?? $this->precision);
+        $f = pow(10, $precision ?? $this->precision ?? 0);
         return floor($number * $f) / $f;
     }
 
@@ -63,7 +63,7 @@ class Numerics
      */
     public function ceil(float $number, int $precision = null): float
     {
-        $f = pow(10, $precision ?? $this->precision);
+        $f = pow(10, $precision ?? $this->precision ?? 0);
         return ceil($number * $f) / $f;
     }
 
@@ -75,7 +75,7 @@ class Numerics
      */
     public function round(float $number, int $precision = null): float
     {
-        return round($number, $precision ?? $this->precision);
+        return round($number, $precision ?? $this->precision ?? 0);
     }
 
     /**
@@ -89,7 +89,7 @@ class Numerics
     {
         $rand_max = mt_getrandmax();
         $max = is_null($max) ? $rand_max : $max;
-        $precision = $precision ?? $this->precision;
+        $precision = $precision ?? $this->precision ?? 0;
 
         do {
             // Decrease precision (if neccesary) to fit rand max
@@ -190,14 +190,14 @@ class Numerics
     /**
      * Numeric formatter.
      * @param  number  $number    The number to count decimals on
-     * @param  integer $precision Precision to use
+     * @param  integer $precision Precision to use, no rounding by default
      * @return string             Numeric string
      */
     public function format(float $number, int $precision = null): string
     {
         return number_format(
             $number,
-            $precision ?? $this->precision,
+            $precision ?? $this->precision ?? $this->precision($number),
             $this->localization['decimal_point'],
             $this->localization['thousands_sep']
         );
