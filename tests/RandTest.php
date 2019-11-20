@@ -1,8 +1,12 @@
 <?php
+
 /**
  * File for Numerics rand function tests.
  * @package Phrity > Util > Numerics
  */
+
+declare(strict_types=1);
+
 namespace Phrity\Util;
 
 use Phrity\Util\Numerics;

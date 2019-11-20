@@ -18,7 +18,7 @@ deps-update: composer.phar
 
 # Code standard check
 cs-check: composer.lock
-	./vendor/bin/phpcs --standard=PSR1,PSR2 --encoding=UTF-8 --report=full --colors src tests
+	./vendor/bin/phpcs --standard=PSR1,PSR12 --encoding=UTF-8 --report=full --colors src tests
 
 # Run tests
 test: composer.lock

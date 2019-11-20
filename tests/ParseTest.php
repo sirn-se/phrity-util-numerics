@@ -1,8 +1,12 @@
 <?php
+
 /**
  * File for Numerics parse function tests.
  * @package Phrity > Util > Numerics
  */
+
+declare(strict_types=1);
+
 namespace Phrity\Util;
 
 use Phrity\Util\Numerics;
@@ -188,7 +192,7 @@ class ParseTest extends TestCase
         // Non-numeric input
         $this->assertNull($numerics->parse(null));
         $this->assertNull($numerics->parse([]));
-        $this->assertNull($numerics->parse(new \stdclass));
+        $this->assertNull($numerics->parse(new \stdclass()));
 
         // Mutliple separators
         $this->assertNull($numerics->parse('1 234 567.890.123'));
