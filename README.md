@@ -197,7 +197,7 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 | Version | PHP | |
 | --- | --- | --- |
 | `2.1` | `^7.1\|^8.0` |  |
-| `2.0` | `^7.1 | Instanceable, `format()` method, ability to specify locale |
-| `1.2` | `>=5.6 | `rand()` and `precision()` methods |
+| `2.0` | `^7.1` | Instanceable, `format()` method, ability to specify locale |
+| `1.2` | `>=5.6` | `rand()` and `precision()` methods |
 | `1.1` | `>=5.6` | `parse()` method |
 | `1.0` | `>=5.6` | `ceil()` and `floor()` methods |
