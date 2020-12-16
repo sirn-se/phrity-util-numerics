@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sirn-se/phrity-util-numerics.svg?branch=master)](https://travis-ci.org/sirn-se/phrity-util-numerics)
+[![Build Status](https://travis-ci.com/sirn-se/phrity-util-numerics.svg?branch=master)](https://travis-ci.com/sirn-se/phrity-util-numerics)
 [![Coverage Status](https://coveralls.io/repos/github/sirn-se/phrity-util-numerics/badge.svg?branch=master)](https://coveralls.io/github/sirn-se/phrity-util-numerics?branch=master)
 
 # Numerics utility
