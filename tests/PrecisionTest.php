@@ -20,7 +20,7 @@ class PrecisionTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class PrecisionTest extends TestCase
     /**
      * Test precision
      */
-    public function testValidPrecision()
+    public function testValidPrecision(): void
     {
         $numerics = new Numerics();
 
@@ -43,11 +43,11 @@ class PrecisionTest extends TestCase
 
     /**
      * Test invalid input type on number argument
-     * @expectedException TypeError
      */
-    public function testInvalidInput()
+    public function testInvalidInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->precision('should fail');
     }
 }

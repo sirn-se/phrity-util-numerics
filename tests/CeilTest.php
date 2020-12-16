@@ -20,7 +20,7 @@ class CeilTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class CeilTest extends TestCase
     /**
      * Test ceil with precision
      */
-    public function testCeilWithPrecision()
+    public function testCeilWithPrecision(): void
     {
         $numerics = new Numerics();
 
@@ -46,7 +46,7 @@ class CeilTest extends TestCase
     /**
      * Test ceil compability
      */
-    public function testCombability()
+    public function testCombability(): void
     {
         $numerics = new Numerics();
 
@@ -63,7 +63,7 @@ class CeilTest extends TestCase
     /**
      * Test integer input
      */
-    public function testIntegerInput()
+    public function testIntegerInput(): void
     {
         $numerics = new Numerics();
 
@@ -81,7 +81,7 @@ class CeilTest extends TestCase
     /**
      * Test instance settings
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $numerics = new Numerics();
         $this->assertEquals(1235.0000, $numerics->ceil(1234.5678));
@@ -95,21 +95,21 @@ class CeilTest extends TestCase
 
     /**
      * Test invalid input type on number argument
-     * @expectedException TypeError
      */
-    public function testInvalidNumberInput()
+    public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->ceil('should fail');
     }
 
     /**
      * Test invalid input type on precision argument
-     * @expectedException TypeError
      */
-    public function testInvalidPrecisionInput()
+    public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->ceil(12.34, 'should fail');
     }
 }

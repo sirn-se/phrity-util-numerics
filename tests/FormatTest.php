@@ -20,7 +20,7 @@ class FormatTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class FormatTest extends TestCase
     /**
      * Test formats
      */
-    public function testFormat()
+    public function testFormat(): void
     {
         $numerics = new Numerics();
 
@@ -43,7 +43,7 @@ class FormatTest extends TestCase
     /**
      * Test swedish format
      */
-    public function testSvSeFormat()
+    public function testSvSeFormat(): void
     {
         $numerics = new Numerics();
         $numerics->setLocale('sv_SE.utf-8');
@@ -54,7 +54,7 @@ class FormatTest extends TestCase
     /**
      * Test english format
      */
-    public function testEnUsFormat()
+    public function testEnUsFormat(): void
     {
         $numerics = new Numerics();
         $numerics->setLocale('en_US.utf-8');
@@ -65,7 +65,7 @@ class FormatTest extends TestCase
     /**
      * Test precisions
      */
-    public function testPrecisions()
+    public function testPrecisions(): void
     {
         $numerics = new Numerics();
         $this->assertEquals('1234.57', $numerics->format(1234.5678, 2));
@@ -79,21 +79,21 @@ class FormatTest extends TestCase
 
     /**
      * Test invalid input type on number argument
-     * @expectedException TypeError
      */
-    public function testInvalidNumberInput()
+    public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->format('should fail');
     }
 
     /**
      * Test invalid input type on precision argument
-     * @expectedException TypeError
      */
-    public function testInvalidPrecisionInput()
+    public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->format(12.34, 'should fail');
     }
 }

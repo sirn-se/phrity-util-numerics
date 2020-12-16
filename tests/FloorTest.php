@@ -20,7 +20,7 @@ class FloorTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class FloorTest extends TestCase
     /**
      * Test floor with precision
      */
-    public function testFloorWithPrecision()
+    public function testFloorWithPrecision(): void
     {
         $numerics = new Numerics();
 
@@ -46,7 +46,7 @@ class FloorTest extends TestCase
     /**
      * Test floor compability
      */
-    public function testCombability()
+    public function testCombability(): void
     {
         $numerics = new Numerics();
 
@@ -63,7 +63,7 @@ class FloorTest extends TestCase
     /**
      * Test integer input
      */
-    public function testIntegerInput()
+    public function testIntegerInput(): void
     {
         $numerics = new Numerics();
 
@@ -81,7 +81,7 @@ class FloorTest extends TestCase
     /**
      * Test instance settings
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $numerics = new Numerics();
         $this->assertEquals(1234.0000, $numerics->floor(1234.5678));
@@ -95,21 +95,21 @@ class FloorTest extends TestCase
 
     /**
      * Test invalid input type on number argument
-     * @expectedException TypeError
      */
-    public function testInvalidNumberInput()
+    public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->floor('should fail');
     }
 
     /**
      * Test invalid input type on precision argument
-     * @expectedException TypeError
      */
-    public function testInvalidPrecisionInput()
+    public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->floor(12.34, 'should fail');
     }
 }

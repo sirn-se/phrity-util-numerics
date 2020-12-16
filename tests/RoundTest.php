@@ -20,7 +20,7 @@ class RoundTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class RoundTest extends TestCase
     /**
      * Test round with precision
      */
-    public function tesRoundWithPrecision()
+    public function tesRoundWithPrecision(): void
     {
         $numerics = new Numerics();
 
@@ -46,7 +46,7 @@ class RoundTest extends TestCase
     /**
      * Test round compability
      */
-    public function testCombability()
+    public function testCombability(): void
     {
         $numerics = new Numerics();
 
@@ -58,7 +58,7 @@ class RoundTest extends TestCase
     /**
      * Test integer input
      */
-    public function testIntegerInput()
+    public function testIntegerInput(): void
     {
         $numerics = new Numerics();
 
@@ -76,7 +76,7 @@ class RoundTest extends TestCase
     /**
      * Test instance settings
      */
-    public function testInstance()
+    public function testInstance(): void
     {
         $numerics = new Numerics();
         $this->assertEquals(1235.0000, $numerics->round(1234.5678));
@@ -90,21 +90,21 @@ class RoundTest extends TestCase
 
     /**
      * Test invalid input type on number argument
-     * @expectedException TypeError
      */
-    public function testInvalidNumberInput()
+    public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->round('should fail');
     }
 
     /**
      * Test invalid input type on precision argument
-     * @expectedException TypeError
      */
-    public function testInvalidPrecisionInput()
+    public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->round(12.34, 'should fail');
     }
 }
