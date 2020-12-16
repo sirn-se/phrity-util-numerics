@@ -20,7 +20,7 @@ class RandTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class RandTest extends TestCase
     /**
      * Test rand ranges
      */
-    public function testRangeRand()
+    public function testRangeRand(): void
     {
         $numerics = new Numerics();
 
@@ -56,7 +56,7 @@ class RandTest extends TestCase
     /**
      * Test rand max value and high precision
      */
-    public function testRandMax()
+    public function testRandMax(): void
     {
         $numerics = new Numerics();
         $rand_max = mt_getrandmax();
@@ -77,7 +77,7 @@ class RandTest extends TestCase
     /**
      * Test rand max value and high precision
      */
-    public function testLargeNumbers()
+    public function testLargeNumbers(): void
     {
         $numerics = new Numerics();
 
@@ -93,7 +93,7 @@ class RandTest extends TestCase
     /**
      * Test single possible returns
      */
-    public function testSingulars()
+    public function testSingulars(): void
     {
         $numerics = new Numerics();
 
@@ -107,7 +107,7 @@ class RandTest extends TestCase
     /**
      * Test invalid min/max/precision combinations
      */
-    public function testInvalidRange()
+    public function testInvalidRange(): void
     {
         $numerics = new Numerics();
 
@@ -118,31 +118,31 @@ class RandTest extends TestCase
 
     /**
      * Test invalid input type on min argument
-     * @expectedException TypeError
      */
-    public function testInvalidMinInput()
+    public function testInvalidMinInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->rand('should fail', 1.2, 0);
     }
 
     /**
      * Test invalid input type on max argument
-     * @expectedException TypeError
      */
-    public function testInvalidMaxInput()
+    public function testInvalidMaxInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->rand(1.2, 'should fail', 0);
     }
 
     /**
      * Test invalid input type on precision argument
-     * @expectedException TypeError
      */
-    public function testInvalidPrecisionInput()
+    public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
+        $this->expectException('TypeError');
         $numerics->rand(1.2, 3.4, 'should fail');
     }
 }

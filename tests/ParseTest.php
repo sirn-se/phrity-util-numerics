@@ -20,7 +20,7 @@ class ParseTest extends TestCase
     /**
      * Set up for all tests
      */
-    public function setUp()
+    public function setUp(): void
     {
         error_reporting(-1);
     }
@@ -28,7 +28,7 @@ class ParseTest extends TestCase
     /**
      * Test integer and float input
      */
-    public function testIntegerAndFloat()
+    public function testIntegerAndFloat(): void
     {
         $numerics = new Numerics();
 
@@ -41,7 +41,7 @@ class ParseTest extends TestCase
     /**
      * Test string input with decimals
      */
-    public function testWithDecimals()
+    public function testWithDecimals(): void
     {
         $numerics = new Numerics();
 
@@ -82,7 +82,7 @@ class ParseTest extends TestCase
     /**
      * Test string input without decimals
      */
-    public function testWithoutDecimals()
+    public function testWithoutDecimals(): void
     {
         $numerics = new Numerics();
 
@@ -116,7 +116,7 @@ class ParseTest extends TestCase
     /**
      * Test string input in malformed but parsable format
      */
-    public function testApproximations()
+    public function testApproximations(): void
     {
         $numerics = new Numerics();
 
@@ -159,7 +159,7 @@ class ParseTest extends TestCase
     /**
      * Test string input with locale based parsing
      */
-    public function testLocaleSvSe()
+    public function testLocaleSvSe(): void
     {
         $numerics = new Numerics();
         $numerics->setLocale('sv_SE.utf-8');
@@ -172,7 +172,7 @@ class ParseTest extends TestCase
     /**
      * Test string input with locale based parsing
      */
-    public function testLocaleEnUs()
+    public function testLocaleEnUs(): void
     {
         $numerics = new Numerics();
         $numerics->setLocale('en_US.utf-8');
@@ -185,7 +185,7 @@ class ParseTest extends TestCase
     /**
      * Test unparsable input
      */
-    public function testUnparsable()
+    public function testUnparsable(): void
     {
         $numerics = new Numerics();
 

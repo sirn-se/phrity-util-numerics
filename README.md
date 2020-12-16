@@ -1,11 +1,11 @@
-[![Build Status](https://travis-ci.org/sirn-se/phrity-util-numerics.svg?branch=master)](https://travis-ci.org/sirn-se/phrity-util-numerics)
+[![Build Status](https://travis-ci.com/sirn-se/phrity-util-numerics.svg?branch=master)](https://travis-ci.com/sirn-se/phrity-util-numerics)
 [![Coverage Status](https://coveralls.io/repos/github/sirn-se/phrity-util-numerics/badge.svg?branch=master)](https://coveralls.io/github/sirn-se/phrity-util-numerics?branch=master)
 
 # Numerics utility
 
 Utility library for numerics. Float versions of `ceil()`, `floor()` and `rand()` with precision. An open minded numeric parser, formatter, plus some additional functions.
 
-Current version supports PHP `^7.1`.
+Current version supports PHP `^7.1|^8.0`.
 
 ## Installation
 
@@ -194,7 +194,10 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 
 ## Versions
 
-* `2.0` - Instanceable, `format()` method, ability to specify locale (PHP ^7.1)
-* `1.2` - `rand()` and `precision()` methods (PHP 5.6|^7.0)
-* `1.1` - `parse()` method (PHP 5.6|^7.0)
-* `1.0` - `ceil()` and `floor()` methods (PHP 5.6|^7.0)
+| Version | PHP | |
+| --- | --- | --- |
+| `2.1` | `^7.1\|^8.0` |  |
+| `2.0` | `^7.1 | Instanceable, `format()` method, ability to specify locale |
+| `1.2` | `>=5.6 | `rand()` and `precision()` methods |
+| `1.1` | `>=5.6` | `parse()` method |
+| `1.0` | `>=5.6` | `ceil()` and `floor()` methods |

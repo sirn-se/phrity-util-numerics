@@ -26,7 +26,7 @@ test: composer.lock
 
 # Run tests with clover coverage report
 coverage: composer.lock
-	./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+	XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-clover build/logs/clover.xml
 	./vendor/bin/php-coveralls -v
 
 
