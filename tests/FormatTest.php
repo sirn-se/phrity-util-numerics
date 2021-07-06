@@ -41,18 +41,7 @@ class FormatTest extends TestCase
     }
 
     /**
-     * Test swedish format
-     */
-    public function testSvSeFormat(): void
-    {
-        $numerics = new Numerics();
-        $numerics->setLocale('sv_SE.utf-8');
-
-        $this->assertEquals('1 234,56', $numerics->format(1234.56, 2));
-    }
-
-    /**
-     * Test english format
+     * Test US format
      */
     public function testEnUsFormat(): void
     {
