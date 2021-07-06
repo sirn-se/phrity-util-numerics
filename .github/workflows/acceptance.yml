@@ -13,6 +13,10 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.1'
+    - name: Locales
+      run: |
+        sudo locale-gen sv_SE.UTF-8
+        sudo update-locale LANG=sv_SE.UTF-8
     - name: Composer
       run: make deps-install
     - name: Test
