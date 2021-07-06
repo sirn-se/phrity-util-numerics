@@ -42,6 +42,7 @@ class Numerics
         $original_locale = setlocale(LC_NUMERIC, 0);
         setlocale(LC_NUMERIC, $locale);
         $this->localization = localeconv();
+        echo "\nLOCALE $locale : '{$this->localization['thousands_sep']}' \n";
         setlocale(LC_NUMERIC, $original_locale);
     }
 
