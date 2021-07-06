@@ -32,6 +32,11 @@ jobs:
       uses: shivammathur/setup-php@v2
       with:
         php-version: '7.2'
+    - name: Locales
+      run: |
+        sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen sv_SE.UTF-8
+        sudo localectl set-locale LANG="sv_SE.UTF-8"
+        export LANG="sv_SE.UTF-8"
     - name: Composer
       run: make deps-install
     - name: Test
