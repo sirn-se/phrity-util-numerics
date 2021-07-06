@@ -15,8 +15,9 @@ jobs:
         php-version: '7.1'
     - name: Locales
       run: |
-        sudo locale-gen sv_SE.utf-8
-        sudo update-locale LANG=sv_SE.utf-8
+        sudo locale-gen sv_SE
+        sudo locale-gen sv_SE.UTF-8
+        sudo update-locale
     - name: Composer
       run: make deps-install
     - name: Test
@@ -34,9 +35,7 @@ jobs:
         php-version: '7.2'
     - name: Locales
       run: |
-        sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen sv_SE.UTF-8
-        sudo localectl set-locale LANG="sv_SE.UTF-8"
-        export LANG="sv_SE.UTF-8"
+        sudo apt-get install language-pack-sv
     - name: Composer
       run: make deps-install
     - name: Test
