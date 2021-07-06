@@ -40,9 +40,9 @@ class Numerics
     public function setLocale(string $locale): void
     {
         $original_locale = setlocale(LC_NUMERIC, 0);
-        setlocale(LC_NUMERIC, $locale);
+        setlocale(LC_ALL, $locale);
         $this->localization = localeconv();
-        echo "\nLOCALE $locale : '{$this->localization['decimal_point']}'/'{$this->localization['thousands_sep']}' \n";
+        echo "\nLOCALE $locale : '{$this->localization['decimal_point']}' / '{$this->localization['thousands_sep']}' \n";
         setlocale(LC_NUMERIC, $original_locale);
     }
 
