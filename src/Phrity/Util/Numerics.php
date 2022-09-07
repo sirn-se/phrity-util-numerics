@@ -177,12 +177,12 @@ class Numerics
             $ts_found = true;
         }
 
-        // This is the trickiest case - use loacale as a final resort
+        // This is the trickiest case - use locale as a final resort
         if (!$ts_found && preg_match('/^[0-9]{1,3}[,][0-9]{3}$/', $numeric) > 0) {
             $numeric = str_replace($this->localization['thousands_sep'], '', $numeric);
         }
 
-        // Remove remianing white-spaces
+        // Remove remaining white-spaces
         $numeric = str_replace(' ', '', $numeric);
 
         // Any remaining comma is a decimal separator
