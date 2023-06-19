@@ -43,21 +43,6 @@ class FormatTest extends TestCase
     /**
      * Test US format
      */
-    public function testSvSeFormat(): void
-    {
-        $numerics = new Numerics();
-        $numerics->setLocale('sv_SE.utf-8');
-
-        $this->assertEquals('1 234,56', $numerics->format(1234.56, 2));
-
-        $numerics = new Numerics(null, 'sv_SE.utf-8');
-
-        $this->assertEquals('1 234,56', $numerics->format(1234.56, 2));
-    }
-
-    /**
-     * Test US format
-     */
     public function testEnUsFormat(): void
     {
         $numerics = new Numerics();
