@@ -36,11 +36,12 @@ Phrity\Util\Numerics {
 
 ### Constructor
 
-The constructor accepts default precision. Precision can also be negative to achive integer rounding.
+The constructor accepts default precision and/or locale.
+Precision can also be negative to achive integer rounding.
 
 ```php
 $numerics = new Numerics(); // Default precision is 0
-$numerics = new Numerics(3); // Default precision is 3
+$numerics = new Numerics(3, 'en_US'); // Default precision is 3, default locale en-US
 ```
 
 ### Ceil method
@@ -196,6 +197,7 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 
 | Version | PHP | |
 | --- | --- | --- |
+| `2.2` | `^7.4\|^8.0` | Default locale |
 | `2.1` | `^7.1\|^8.0` |  |
 | `2.0` | `^7.1` | Instanceable, `format()` method, ability to specify locale |
 | `1.2` | `>=5.6` | `rand()` and `precision()` methods |

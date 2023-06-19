@@ -167,6 +167,12 @@ class ParseTest extends TestCase
         $this->assertSame(12345.0, $numerics->parse('12 345'));
         $this->assertSame(12.345, $numerics->parse('12.345'));
         $this->assertSame(12.345, $numerics->parse('12,345'));
+
+        $numerics = new Numerics(null, 'sv_SE.utf-8');
+
+        $this->assertSame(12345.0, $numerics->parse('12 345'));
+        $this->assertSame(12.345, $numerics->parse('12.345'));
+        $this->assertSame(12.345, $numerics->parse('12,345'));
     }
 
     /**
@@ -176,6 +182,12 @@ class ParseTest extends TestCase
     {
         $numerics = new Numerics();
         $numerics->setLocale('en_US.utf-8');
+
+        $this->assertSame(12345.0, $numerics->parse('12 345'));
+        $this->assertSame(12.345, $numerics->parse('12.345'));
+        $this->assertSame(12345.0, $numerics->parse('12,345'));
+
+        $numerics = new Numerics(null, 'en_US.utf-8');
 
         $this->assertSame(12345.0, $numerics->parse('12 345'));
         $this->assertSame(12.345, $numerics->parse('12.345'));

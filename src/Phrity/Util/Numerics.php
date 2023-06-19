@@ -26,11 +26,15 @@ class Numerics
     /**
      * Constructor for this class
      * @param integer $precision Default precision
+     * @param string  $locale    Default locale to use as string
      */
-    public function __construct(int $precision = null)
+    public function __construct(?int $precision = null, ?string $locale = null)
     {
         $this->precision = $precision;
         $this->localization = localeconv();
+        if ($locale) {
+            $this->setLocale($locale);
+        }
     }
 
     /**
@@ -51,7 +55,7 @@ class Numerics
      * @param  integer  $precision Precision to apply
      * @return float               Return floor with precision
      */
-    public function floor(float $number, int $precision = null): float
+    public function floor(float $number, ?int $precision = null): float
     {
         $f = pow(10, $precision ?? $this->precision ?? 0);
         return floor($number * $f) / $f;
@@ -63,7 +67,7 @@ class Numerics
      * @param  integer  $precision Precision to apply
      * @return float               Return ceil with precision
      */
-    public function ceil(float $number, int $precision = null): float
+    public function ceil(float $number, ?int $precision = null): float
     {
         $f = pow(10, $precision ?? $this->precision ?? 0);
         return ceil($number * $f) / $f;
@@ -75,7 +79,7 @@ class Numerics
      * @param  integer  $precision Precision to apply
      * @return float               Return round with precision
      */
-    public function round(float $number, int $precision = null): float
+    public function round(float $number, ?int $precision = null): float
     {
         return round($number, $precision ?? $this->precision ?? 0);
     }
@@ -87,7 +91,7 @@ class Numerics
      * @param  integer  $precision Precision to use
      * @return float               Random number with precision (null if not solvable)
      */
-    public function rand(float $min = 0, float $max = null, int $precision = null): ?float
+    public function rand(float $min = 0, ?float $max = null, ?int $precision = null): ?float
     {
         $rand_max = mt_getrandmax();
         $max = is_null($max) ? $rand_max : $max;
@@ -195,7 +199,7 @@ class Numerics
      * @param  integer $precision Precision to use, no rounding by default
      * @return string             Numeric string
      */
-    public function format(float $number, int $precision = null): string
+    public function format(float $number, ?int $precision = null): string
     {
         return number_format(
             $number,
