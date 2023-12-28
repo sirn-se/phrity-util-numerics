@@ -14,23 +14,22 @@ namespace Phrity\Util;
  */
 class Numerics
 {
-    /**
-     * @var int $precision Default precision
-     */
+    /** @var int $precision Default precision */
     private $precision;
-    /**
-     * @var array $localization Localization data
-     */
+    /** @var int $digits Relevant digits for floats */
+    private $digits;
+    /** @var array $localization Localization data */
     private $localization;
 
     /**
      * Constructor for this class
-     * @param integer $precision Default precision
-     * @param string  $locale    Default locale to use as string
+     * @param int|null    $precision Default precision
+     * @param string|null $locale    Default locale to use as string
      */
     public function __construct(?int $precision = null, ?string $locale = null)
     {
         $this->precision = $precision;
+        $this->digits = PHP_FLOAT_DIG;
         $this->localization = localeconv();
         if ($locale) {
             $this->setLocale($locale);
@@ -39,7 +38,7 @@ class Numerics
 
     /**
      * Set locale on instance, used for format and parse method
-     * @param  string $locale The locale to use as string
+     * @param string $locale The locale to use as string
      */
     public function setLocale(string $locale): void
     {
@@ -51,8 +50,8 @@ class Numerics
 
     /**
      * Floor function with precision.
-     * @param  number   $number    The number to apply floor to
-     * @param  integer  $precision Precision to apply
+     * @param  float    $number    The number to apply floor to
+     * @param  int|null $precision Precision to apply
      * @return float               Return floor with precision
      */
     public function floor(float $number, ?int $precision = null): float
@@ -63,8 +62,8 @@ class Numerics
 
     /**
      * Ceil function with precision.
-     * @param  number   $number    The number to apply ceil to
-     * @param  integer  $precision Precision to apply
+     * @param  float    $number    The number to apply ceil to
+     * @param  int|null $precision Precision to apply
      * @return float               Return ceil with precision
      */
     public function ceil(float $number, ?int $precision = null): float
@@ -75,9 +74,9 @@ class Numerics
 
     /**
      * Round function with precision.
-     * @param  number   $number    The number to apply round to
-     * @param  integer  $precision Precision to apply
-     * @return float               Return round with precision
+     * @param  float    $number    The number to apply round to
+     * @param  int|null $precision Precision to apply
+     * @return float                Return round with precision
      */
     public function round(float $number, ?int $precision = null): float
     {
@@ -86,10 +85,10 @@ class Numerics
 
     /**
      * Random float number generator with precision.
-     * @param  number   $min       Lowest result
-     * @param  number   $max       Highest result
-     * @param  integer  $precision Precision to use
-     * @return float               Random number with precision (null if not solvable)
+     * @param  float      $min       Lowest result
+     * @param  float|null $max       Highest result
+     * @param  int|null   $precision Precision to use
+     * @return float|null            Random number with precision (null if not solvable)
      */
     public function rand(float $min = 0, ?float $max = null, ?int $precision = null): ?float
     {
@@ -115,20 +114,22 @@ class Numerics
 
     /**
      * Count number of relevant decimals in a number.
-     * @param  number $number The number to count decimals on
-     * @return int            Number of decimals
+     * @param  float $number The number to count decimals on
+     * @param  bool  $wide   If all relevant decimals should be considered
+     * @return int           Number of decimals
      */
-    public function precision(float $number): int
+    public function precision(float $number, bool $wide = false): int
     {
-        $pos = strrchr((string)$number, '.');
+        $numstr = $wide ? sprintf("%.{$this->digits}f", $number) : sprintf("%f", $number);
+        $pos = strrchr(rtrim($numstr, 0), '.');
         return $pos ? max(0, strlen($pos) - 1) : 0;
     }
 
     /**
      * Numeric parser.
      * Identifies decimal/thousand separator from input rather than assumptions.
-     * @param  mixed $numeric  A numeric representation to parse
-     * @return float           Return as float (null if parsing failed)
+     * @param  int|float|string $numeric  A numeric representation to parse
+     * @return float|null                 Return as float (null if parsing failed)
      */
     public function parse($numeric): ?float
     {
@@ -195,15 +196,16 @@ class Numerics
 
     /**
      * Numeric formatter.
-     * @param  number  $number    The number to count decimals on
-     * @param  integer $precision Precision to use, no rounding by default
-     * @return string             Numeric string
+     * @param  float    $number    The number to count decimals on
+     * @param  int|null $precision Precision to use, no rounding by default
+     * @return string              Numeric string
      */
     public function format(float $number, ?int $precision = null): string
     {
+        $precision = $precision ?? $this->precision ?? $this->precision($number);
         return number_format(
-            $number,
-            $precision ?? $this->precision ?? $this->precision($number),
+            $this->round($number, $precision),
+            $precision,
             $this->localization['decimal_point'],
             $this->localization['thousands_sep']
         );
