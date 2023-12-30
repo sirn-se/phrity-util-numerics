@@ -1,11 +1,11 @@
 [![Build Status](https://github.com/sirn-se/phrity-util-numerics/actions/workflows/acceptance.yml/badge.svg)](https://github.com/sirn-se/phrity-util-numerics/actions)
-[![Coverage Status](https://coveralls.io/repos/github/sirn-se/phrity-util-numerics/badge.svg?branch=master)](https://coveralls.io/github/sirn-se/phrity-util-numerics?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/sirn-se/phrity-util-numerics/badge.svg?branch=main)](https://coveralls.io/github/sirn-se/phrity-util-numerics?branch=main)
 
 # Numerics utility
 
 Utility library for numerics. Float versions of `ceil()`, `floor()` and `rand()` with precision. An open minded numeric parser, formatter, plus some additional functions.
 
-Current version supports PHP `^7.1|^8.0`.
+Current version supports PHP `^7.4|^8.0`.
 
 ## Installation
 
@@ -22,15 +22,15 @@ composer require phrity/util-numerics
 Phrity\Util\Numerics {
 
     /* Methods */
-    public __construct(int $precision = 0)
-    public ceil(number $number, int $precision = null) : float
-    public floor(number $number, int $precision = null) : float
-    public round(number $number, int $precision = null) : float
-    public parse(mixed $numeric) : float
-    public format(number $number, int $precision = null) : string
-    public rand(number $min = 0, number $max = 0, int $precision = null) : float
-    public precision(number $number) : int
-    public setLocale(string $locale) : void
+    public __construct(int|null $precision = null, string|null $locale = null);
+    public ceil(float $number, int|null $precision = null): float;
+    public floor(float $number, int|null $precision = null): float;
+    public round(float $number, int|null $precision = null): float;
+    public parse(int|float|string $numeric): float|null;
+    public format(float $number, int|null $precision = null): string;
+    public rand(float $min = 0, float[null $max = null, int|null $precision = null): float|null;
+    public precision(float $number, bool $wide = false): int;
+    public setLocale(string $locale): void;
 }
 ```
 
@@ -51,16 +51,16 @@ Round fractions up, according to precision specifier. A precision of `0` corresp
 ```php
 // Precison specified on each call
 $numerics = new Numerics();
-$numerics->ceil(1234.5678,  2) // 1234.57
-$numerics->ceil(1234.5678,  1) // 1234.60
-$numerics->ceil(1234.5678,  0) // 1235.00
-$numerics->ceil(1234.5678, -1) // 1240.00
-$numerics->ceil(1234.5678, -2) // 1300.00
+$numerics->ceil(1234.5678,  2); // 1234.57
+$numerics->ceil(1234.5678,  1); // 1234.60
+$numerics->ceil(1234.5678,  0); // 1235.00
+$numerics->ceil(1234.5678, -1); // 1240.00
+$numerics->ceil(1234.5678, -2); // 1300.00
 
 // Precison specified as default, override is possible
 $numerics = new Numerics(2);
-$numerics->ceil(1234.5678) // 1234.57
-$numerics->ceil(1234.5678, 0) // 1235.00
+$numerics->ceil(1234.5678); // 1234.57
+$numerics->ceil(1234.5678, 0); // 1235.00
 ```
 
 ### Floor method
@@ -70,16 +70,16 @@ Round fractions down, according to precision specifier. A precision of `0` corre
 ```php
 // Precison specified on each call
 $numerics = new Numerics();
-$numerics->floor(1234.5678,  2) // 1234.56
-$numerics->floor(1234.5678,  1) // 1234.50
-$numerics->floor(1234.5678,  0) // 1234.00
-$numerics->floor(1234.5678, -1) // 1230.00
-$numerics->floor(1234.5678, -2) // 1200.00
+$numerics->floor(1234.5678,  2); // 1234.56
+$numerics->floor(1234.5678,  1); // 1234.50
+$numerics->floor(1234.5678,  0); // 1234.00
+$numerics->floor(1234.5678, -1); // 1230.00
+$numerics->floor(1234.5678, -2); // 1200.00
 
 // Precison specified as default, override is possible
 $numerics = new Numerics(2);
-$numerics->floor(1234.5678) // 1234.56
-$numerics->floor(1234.5678, 0) // 1234.00
+$numerics->floor(1234.5678); // 1234.56
+$numerics->floor(1234.5678, 0); // 1234.00
 ```
 
 ### Round method
@@ -89,16 +89,16 @@ Standard round, according to precision specifier. Precision can also be negative
 ```php
 // Precison specified on each call
 $numerics = new Numerics();
-$numerics->round(1234.5678,  2) // 1234.57
-$numerics->round(1234.5678,  1) // 1234.60
-$numerics->round(1234.5678,  0) // 1235.00
-$numerics->round(1234.5678, -1) // 1230.00
-$numerics->round(1234.5678, -2) // 1200.00
+$numerics->round(1234.5678,  2); // 1234.57
+$numerics->round(1234.5678,  1); // 1234.60
+$numerics->round(1234.5678,  0); // 1235.00
+$numerics->round(1234.5678, -1); // 1230.00
+$numerics->round(1234.5678, -2); // 1200.00
 
 // Precison specified as default, override is possible
 $numerics = new Numerics(2);
-$numerics->round(1234.5678) // 1234.57
-$numerics->round(1234.5678, 0) // 1235.00
+$numerics->round(1234.5678); // 1234.57
+$numerics->round(1234.5678, 0); // 1235.00
 ```
 
 ### Parse method
@@ -109,49 +109,61 @@ Numeric parser. Parses number by evaluating input rather than using locale or ma
 $numerics = new Numerics();
 
 // Integer and float input
-$numerics->parse(1234.56) // 1234.56
-$numerics->parse(1234) // 1234.00
+$numerics->parse(1234.56); // 1234.56
+$numerics->parse(1234); // 1234.00
 
 // String input
-$numerics->parse('1234.56') // 1234.56
-$numerics->parse('1234,56') // 1234.56
-$numerics->parse('1 234.56') // 1234.56
-$numerics->parse('1 234,56') // 1234.56
-$numerics->parse('1,234.56') // 1234.56
-$numerics->parse('1.234,56') // 1234.56
+$numerics->parse('1234.56'); // 1234.56
+$numerics->parse('1234,56'); // 1234.56
+$numerics->parse('1 234.56'); // 1234.56
+$numerics->parse('1 234,56'); // 1234.56
+$numerics->parse('1,234.56'); // 1234.56
+$numerics->parse('1.234,56'); // 1234.56
 
 // Evaluated string input
-$numerics->parse(' 1 234.56 ') // 1234.56
-$numerics->parse('-1,234.56') // -1234.56
-$numerics->parse('+1.234,56') // 1234.56
-$numerics->parse('.56') // 0.56
-$numerics->parse(',56') // 0.56
-$numerics->parse('12.') // 12.0
-$numerics->parse('12,') // 12.0
+$numerics->parse(' 1 234.56 '); // 1234.56
+$numerics->parse('-1,234.56'); // -1234.56
+$numerics->parse('+1.234,56'); // 1234.56
+$numerics->parse('.56'); // 0.56
+$numerics->parse(',56'); // 0.56
+$numerics->parse('12.'); // 12.0
+$numerics->parse('12,'); // 12.0
 
 // Locale support for fringe cases
 $numerics->setLocale('sv_SE');
-$numerics->parse('123,456') // 123.456
+$numerics->parse('123,456'); // 123.456
 $numerics->setLocale('en_US');
-$numerics->parse('123,456') // 123456.0
+$numerics->parse('123,456'); // 123456.0
 ```
 
 ### Format method
 
-Numeric formatter. Formats numbers according to precision (rounding and padding) and locale.
+Numeric formatter. Formats numbers according to precision (rounding and padding) and locale.  Precision can also be negative.
 
 ```php
 $numerics = new Numerics();
 
 $numerics->setLocale('sv_SE');
-$numerics->format(1234.5678, 2) // "1 234,56"
-$numerics->format(1234, 2) // "1 234,00"
-$numerics->format(1234.5678, 0) // "1 234"
+$numerics->format(1234.5678, 2); // "1 234,56"
+$numerics->format(1234, 2); // "1 234,00"
+$numerics->format(1234.5678, 0); // "1 234"
+$numerics->format(1234, -2); // "1 200"
 
 $numerics->setLocale('en_US');
-$numerics->format(1234.5678, 2) // "1,234.56"
-$numerics->format(1234, 2) // "1,234.00"
-$numerics->format(1234.5678, 0) // "1,234"
+$numerics->format(1234.5678, 2); // "1,234.56"
+$numerics->format(1234, 2); // "1,234.00"
+$numerics->format(1234.5678, 0); // "1,234"
+$numerics->format(1234, -2); // "1,200"
+```
+
+Using format with many decimals.
+
+```php
+$big = 0.123456789123456789;
+$numerics->format($big); // "0.123457" - same as below
+$numerics->format($big, $numerics->precision($big)); // "0.123457" - php decimal precision
+$numerics->format($big, $numerics->precision($big, true)); // "0.123456789123457" - without precision loss
+$numerics->format($big, 50); // "0.12345678912345678379658409085095627233386039733887" - with precision loss
 ```
 
 ### Rand method
@@ -161,27 +173,36 @@ Float random number with precision. Precision can also be negative. Returns `flo
 ```php
 // Precison specified on each call
 $numerics = new Numerics();
-$numerics->rand(0, 10) // 0.0 … 10.0
-$numerics->rand(0, 100, 2) // 0.00 … 100.00
-$numerics->rand(-100, 100, 4) // -100.0000 … 100.0000
-$numerics->rand(0.01, 0.97, 4) // 0.0100 … 0.9700
-$numerics->rand(9, 11, -1) // 10.0
-$numerics->rand(90, 110, -2) // 100.0
+$numerics->rand(0, 10); // 0.0 … 10.0
+$numerics->rand(0, 100, 2); // 0.00 … 100.00
+$numerics->rand(-100, 100, 4); // -100.0000 … 100.0000
+$numerics->rand(0.01, 0.97, 4); // 0.0100 … 0.9700
+$numerics->rand(9, 11, -1); // 10.0
+$numerics->rand(90, 110, -2); // 100.0
 
 // Precison specified as default, override is possible
 $numerics = new Numerics(2);
-$numerics->rand(0, 100) // 0.00 … 100.00
+$numerics->rand(0, 100); // 0.00 … 100.00
 ```
 
 ### Precision method
 
 Count number of relevant decimals in a number.
+By default the number of serializable decimals (as of php evaluation) is returned.
 
 ```php
 $numerics = new Numerics();
-$numerics->precision(12) // 0
-$numerics->precision(12.0) // 0
-$numerics->precision(12.34) // 2
+$numerics->precision(12); // 0
+$numerics->precision(12.0); // 0
+$numerics->precision(12.34); // 2
+$numerics->precision(0.123456789123456789); // 6
+```
+
+By setting the `wide` option, number of decimals usable without precision loss is returned.
+
+```php
+$numerics = new Numerics();
+$numerics->precision(0.123456789123456789, true); // 15
 ```
 
 ### setLocale method
@@ -197,6 +218,7 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 
 | Version | PHP | |
 | --- | --- | --- |
+| `2.3` | `^7.4\|^8.0` | Precision imrovements, negative precision in format() |
 | `2.2` | `^7.4\|^8.0` | Default locale |
 | `2.1` | `^7.1\|^8.0` |  |
 | `2.0` | `^7.1` | Instanceable, `format()` method, ability to specify locale |

@@ -38,6 +38,9 @@ class FormatTest extends TestCase
         $this->assertEquals('12.35', $numerics->format(12.345678, 2));
         $this->assertEquals('-12.34', $numerics->format(-12.34, 2));
         $this->assertEquals('1234.56', $numerics->format(1234.56, 2));
+        $this->assertEquals('1200', $numerics->format(1234.56, -2));
+        $this->assertEquals('1234.5600000000', $numerics->format(1234.56, 10));
+        $this->assertEquals('0.12345678912345678380', $numerics->format(0.123456789123456789, 20));
     }
 
     /**

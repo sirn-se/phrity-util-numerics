@@ -39,6 +39,9 @@ class PrecisionTest extends TestCase
         $this->assertEquals(1, $numerics->precision(12.30));
         $this->assertEquals(2, $numerics->precision(12.34));
         $this->assertEquals(2, $numerics->precision(12.340));
+        $this->assertEquals(6, $numerics->precision(0.123456789123456789));
+        $this->assertEquals(15, $numerics->precision(0.123456789123456789, true));
+        $this->assertEquals(0, $numerics->precision(1.0E+25));
     }
 
     /**
