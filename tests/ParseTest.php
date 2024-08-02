@@ -9,8 +9,8 @@ declare(strict_types=1);
 
 namespace Phrity\Util;
 
-use Phrity\Util\Numerics;
 use PHPUnit\Framework\TestCase;
+use Phrity\Util\Numerics;
 
 /**
  * Numerics parse() test class.

@@ -218,7 +218,7 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 
 | Version | PHP | |
 | --- | --- | --- |
-| `2.4` | `^8.0` | tbc |
+| `2.4` | `^8.0` | Multiple-of rounding: `mround()` `mfloor()` `mceil()` methods |
 | `2.3` | `^7.4\|^8.0` | Precision improvements, negative precision in format() |
 | `2.2` | `^7.4\|^8.0` | Default locale |
 | `2.1` | `^7.1\|^8.0` |  |

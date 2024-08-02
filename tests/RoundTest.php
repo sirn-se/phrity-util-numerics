@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Phrity\Util;
 
-use Phrity\Util\Numerics;
 use PHPUnit\Framework\TestCase;
+use Phrity\Util\Numerics;
+use TypeError;
 
 /**
  * Numerics round test class.
@@ -28,7 +29,7 @@ class RoundTest extends TestCase
     /**
      * Test round with precision
      */
-    public function tesRoundWithPrecision(): void
+    public function testRoundWithPrecision(): void
     {
         $numerics = new Numerics();
 
@@ -37,10 +38,10 @@ class RoundTest extends TestCase
         $this->assertEquals(1234.5700, $numerics->round(1234.5678, 2));
         $this->assertEquals(1234.6000, $numerics->round(1234.5678, 1));
         $this->assertEquals(1235.0000, $numerics->round(1234.5678, 0));
-        $this->assertEquals(1240.0000, $numerics->round(1234.5678, -1));
-        $this->assertEquals(1300.0000, $numerics->round(1234.5678, -2));
-        $this->assertEquals(2000.0000, $numerics->round(1234.5678, -3));
-        $this->assertEquals(10000.0000, $numerics->round(1234.5678, -4));
+        $this->assertEquals(1230.0000, $numerics->round(1234.5678, -1));
+        $this->assertEquals(1200.0000, $numerics->round(1234.5678, -2));
+        $this->assertEquals(1000.0000, $numerics->round(1234.5678, -3));
+        $this->assertEquals(0.0000, $numerics->round(1234.5678, -4));
     }
 
     /**
@@ -94,7 +95,8 @@ class RoundTest extends TestCase
     public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
         $numerics->round('should fail');
     }
 
@@ -104,7 +106,8 @@ class RoundTest extends TestCase
     public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #2 ($precision) must be of type ?int, string given');
         $numerics->round(12.34, 'should fail');
     }
 }

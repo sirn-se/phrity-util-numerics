@@ -7,6 +7,8 @@
 
 namespace Phrity\Util;
 
+use DomainException;
+
 /**
  * Numerics utility class.
  * Float versions of ceil(), floor() and rand() with precision.
@@ -81,6 +83,48 @@ class Numerics
     public function round(float $number, int|null $precision = null): float
     {
         return round($number, $precision ?? $this->precision ?? 0);
+    }
+
+    /**
+     * Floor function using multiple-of.
+     * @param  float    $number     The number to apply floor to
+     * @param  float    $multipleOf Rounding target multiple
+     * @return float                Return floor by multiple-of (null if not solvable)
+     */
+    public function mfloor(float $number, float $multipleOf): float
+    {
+        if ($multipleOf <= 0) {
+            throw new DomainException('Argument #2 ($multipleOf) must be a float higher than 0');
+        }
+        return round(floor($number / $multipleOf) * $multipleOf, $this->precision($multipleOf));
+    }
+
+    /**
+     * Ceil function using multiple-of.
+     * @param  float    $number     The number to apply ceil to
+     * @param  float    $multipleOf Rounding target multiple
+     * @return float                Return ceil by multiple-of (null if not solvable)
+     */
+    public function mceil(float $number, float $multipleOf): float
+    {
+        if ($multipleOf <= 0) {
+            throw new DomainException('Argument #2 ($multipleOf) must be a float higher than 0');
+        }
+        return round(ceil($number / $multipleOf) * $multipleOf, $this->precision($multipleOf));
+    }
+
+    /**
+     * Round function using multiple-of.
+     * @param  float    $number     The number to apply round to
+     * @param  float    $multipleOf Rounding target multiple
+     * @return float                Return round by multiple-of (null if not solvable)
+     */
+    public function mround(float $number, float $multipleOf): float
+    {
+        if ($multipleOf <= 0) {
+            throw new DomainException('Argument #2 ($multipleOf) must be a float higher than 0');
+        }
+        return round(round($number / $multipleOf) * $multipleOf, $this->precision($multipleOf));
     }
 
     /**

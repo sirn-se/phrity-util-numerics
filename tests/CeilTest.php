@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Phrity\Util;
 
-use Phrity\Util\Numerics;
 use PHPUnit\Framework\TestCase;
+use Phrity\Util\Numerics;
+use TypeError;
 
 /**
  * Numerics ceil test class.
@@ -99,7 +100,8 @@ class CeilTest extends TestCase
     public function testInvalidNumberInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
         $numerics->ceil('should fail');
     }
 
@@ -109,7 +111,8 @@ class CeilTest extends TestCase
     public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #2 ($precision) must be of type ?int, string given');
         $numerics->ceil(12.34, 'should fail');
     }
 }

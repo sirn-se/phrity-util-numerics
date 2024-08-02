@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Phrity\Util;
 
-use Phrity\Util\Numerics;
 use PHPUnit\Framework\TestCase;
+use Phrity\Util\Numerics;
+use TypeError;
 
 /**
  * Numerics precision test class.
@@ -50,7 +51,8 @@ class PrecisionTest extends TestCase
     public function testInvalidInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
         $numerics->precision('should fail');
     }
 }

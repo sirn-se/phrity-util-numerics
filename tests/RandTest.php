@@ -9,8 +9,9 @@ declare(strict_types=1);
 
 namespace Phrity\Util;
 
-use Phrity\Util\Numerics;
 use PHPUnit\Framework\TestCase;
+use Phrity\Util\Numerics;
+use TypeError;
 
 /**
  * Numerics rand test class.
@@ -122,7 +123,8 @@ class RandTest extends TestCase
     public function testInvalidMinInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #1 ($min) must be of type float, string given,');
         $numerics->rand('should fail', 1.2, 0);
     }
 
@@ -132,7 +134,8 @@ class RandTest extends TestCase
     public function testInvalidMaxInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #2 ($max) must be of type ?float, string given');
         $numerics->rand(1.2, 'should fail', 0);
     }
 
@@ -142,7 +145,8 @@ class RandTest extends TestCase
     public function testInvalidPrecisionInput(): void
     {
         $numerics = new Numerics();
-        $this->expectException('TypeError');
-        $numerics->rand(1.2, 3.4, 'should fail');
+        $this->expectException(TypeError::class);
+        $this->expectExceptionMessage('Argument #3 ($precision) must be of type ?int, string given');
+        $numerics->rand(1.2, null, 'should fail');
     }
 }
