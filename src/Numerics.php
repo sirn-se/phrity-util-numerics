@@ -15,18 +15,18 @@ namespace Phrity\Util;
 class Numerics
 {
     /** @var int $precision Default precision */
-    private $precision;
+    private int|null $precision;
     /** @var int $digits Relevant digits for floats */
-    private $digits;
+    private int $digits;
     /** @var array $localization Localization data */
-    private $localization;
+    private array $localization;
 
     /**
      * Constructor for this class
      * @param int|null    $precision Default precision
      * @param string|null $locale    Default locale to use as string
      */
-    public function __construct(?int $precision = null, ?string $locale = null)
+    public function __construct(int|null $precision = null, string|null $locale = null)
     {
         $this->precision = $precision;
         $this->digits = PHP_FLOAT_DIG;
@@ -54,7 +54,7 @@ class Numerics
      * @param  int|null $precision Precision to apply
      * @return float               Return floor with precision
      */
-    public function floor(float $number, ?int $precision = null): float
+    public function floor(float $number, int|null $precision = null): float
     {
         $f = pow(10, $precision ?? $this->precision ?? 0);
         return floor($number * $f) / $f;
@@ -66,7 +66,7 @@ class Numerics
      * @param  int|null $precision Precision to apply
      * @return float               Return ceil with precision
      */
-    public function ceil(float $number, ?int $precision = null): float
+    public function ceil(float $number, int|null $precision = null): float
     {
         $f = pow(10, $precision ?? $this->precision ?? 0);
         return ceil($number * $f) / $f;
@@ -76,9 +76,9 @@ class Numerics
      * Round function with precision.
      * @param  float    $number    The number to apply round to
      * @param  int|null $precision Precision to apply
-     * @return float                Return round with precision
+     * @return float               Return round with precision
      */
-    public function round(float $number, ?int $precision = null): float
+    public function round(float $number, int|null $precision = null): float
     {
         return round($number, $precision ?? $this->precision ?? 0);
     }
@@ -90,7 +90,7 @@ class Numerics
      * @param  int|null   $precision Precision to use
      * @return float|null            Random number with precision (null if not solvable)
      */
-    public function rand(float $min = 0, ?float $max = null, ?int $precision = null): ?float
+    public function rand(float $min = 0, float|null $max = null, int|null $precision = null): float|null
     {
         $rand_max = mt_getrandmax();
         $max = is_null($max) ? $rand_max : $max;
@@ -131,7 +131,7 @@ class Numerics
      * @param  int|float|string $numeric  A numeric representation to parse
      * @return float|null                 Return as float (null if parsing failed)
      */
-    public function parse($numeric): ?float
+    public function parse($numeric): float|null
     {
         $ts_found = false;
 
@@ -200,7 +200,7 @@ class Numerics
      * @param  int|null $precision Precision to use, no rounding by default
      * @return string              Numeric string
      */
-    public function format(float $number, ?int $precision = null): string
+    public function format(float $number, int|null $precision = null): string
     {
         $precision = $precision ?? $this->precision ?? $this->precision($number);
         return number_format(
