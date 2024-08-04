@@ -5,7 +5,7 @@
 
 Utility library for numerics. Float versions of `ceil()`, `floor()` and `rand()` with precision. An open minded numeric parser, formatter, plus some additional functions.
 
-Current version supports PHP `^7.4|^8.0`.
+Current version supports PHP `^8.0`.
 
 ## Installation
 
@@ -218,7 +218,8 @@ $numerics->setLocale('sv_SE'); // Set to Swedish
 
 | Version | PHP | |
 | --- | --- | --- |
-| `2.3` | `^7.4\|^8.0` | Precision imrovements, negative precision in format() |
+| `2.4` | `^8.0` | Multiple-of rounding: `mround()` `mfloor()` `mceil()` methods |
+| `2.3` | `^7.4\|^8.0` | Precision improvements, negative precision in format() |
 | `2.2` | `^7.4\|^8.0` | Default locale |
 | `2.1` | `^7.1\|^8.0` |  |
 | `2.0` | `^7.1` | Instanceable, `format()` method, ability to specify locale |
