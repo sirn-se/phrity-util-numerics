@@ -26,6 +26,9 @@ Phrity\Util\Numerics {
     public ceil(float $number, int|null $precision = null): float;
     public floor(float $number, int|null $precision = null): float;
     public round(float $number, int|null $precision = null): float;
+    public mceil(float $number, float $multipleOf): float;
+    public mfloor(float $number, float $multipleOf): float;
+    public mround(float $number, float $multipleOf): float;
     public parse(int|float|string $numeric): float|null;
     public format(float $number, int|null $precision = null): string;
     public rand(float $min = 0, float[null $max = null, int|null $precision = null): float|null;
@@ -99,6 +102,42 @@ $numerics->round(1234.5678, -2); // 1200.00
 $numerics = new Numerics(2);
 $numerics->round(1234.5678); // 1234.57
 $numerics->round(1234.5678, 0); // 1235.00
+```
+
+### Ceil multiple-of method
+
+Round up, according to multiple-of specifier.
+
+```php
+$numerics = new Numerics();
+$numerics->mceil(123.123, 0.25); // 123.25
+$numerics->mceil(123.123, 2.5); // 125
+$numerics->mceil(123.123, 25); // 125
+$numerics->mceil(123.123, 250); // 250
+```
+
+### Floor multiple-of method
+
+Round down, according to multiple-of specifier.
+
+```php
+$numerics = new Numerics();
+$numerics->mfloor(456.789, 0.25); // 456.75
+$numerics->mfloor(456.789, 2.5); // 455
+$numerics->mfloor(456.789, 25); // 450
+$numerics->mfloor(456.789, 250); // 250
+```
+
+### Round multiple-of method
+
+Round, according to multiple-of specifier.
+
+```php
+$numerics = new Numerics();
+$numerics->mround(456.789, 0.25); // 456.75
+$numerics->mround(456.789, 2.5); // 457.5
+$numerics->mround(456.789, 25); // 450
+$numerics->mround(456.789, 250); // 500
 ```
 
 ### Parse method
