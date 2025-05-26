@@ -102,6 +102,7 @@ class FloorTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->floor('should fail');
     }
 
@@ -113,6 +114,7 @@ class FloorTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($precision) must be of type ?int, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->floor(12.34, 'should fail');
     }
 }

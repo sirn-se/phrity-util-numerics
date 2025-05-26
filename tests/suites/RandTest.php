@@ -125,6 +125,7 @@ class RandTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($min) must be of type float, string given,');
+        /* @phpstan-ignore argument.type */
         $numerics->rand('should fail', 1.2, 0);
     }
 
@@ -136,6 +137,7 @@ class RandTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($max) must be of type ?float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->rand(1.2, 'should fail', 0);
     }
 
@@ -147,6 +149,7 @@ class RandTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #3 ($precision) must be of type ?int, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->rand(1.2, null, 'should fail');
     }
 }

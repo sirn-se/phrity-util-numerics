@@ -53,6 +53,7 @@ class PrecisionTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->precision('should fail');
     }
 }

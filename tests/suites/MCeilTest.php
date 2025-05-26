@@ -63,7 +63,7 @@ class MCeilTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Argument #2 ($multipleOf) must be a float higher than 0');
-        $this->assertNull($numerics->mceil(456.789, 0));
+        $numerics->mceil(456.789, 0);
     }
 
     /**
@@ -74,6 +74,7 @@ class MCeilTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->mceil('should fail', 1);
     }
 
@@ -85,6 +86,7 @@ class MCeilTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($multipleOf) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->mceil(12.34, 'should fail');
     }
 }

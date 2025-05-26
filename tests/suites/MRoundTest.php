@@ -63,7 +63,7 @@ class MRoundTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(DomainException::class);
         $this->expectExceptionMessage('Argument #2 ($multipleOf) must be a float higher than 0');
-        $this->assertNull($numerics->mround(456.789, 0));
+        $numerics->mround(456.789, 0);
     }
 
     /**
@@ -74,6 +74,7 @@ class MRoundTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #1 ($number) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->mround('should fail', 1);
     }
 
@@ -85,6 +86,7 @@ class MRoundTest extends TestCase
         $numerics = new Numerics();
         $this->expectException(TypeError::class);
         $this->expectExceptionMessage('Argument #2 ($multipleOf) must be of type float, string given');
+        /* @phpstan-ignore argument.type */
         $numerics->mround(12.34, 'should fail');
     }
 }

@@ -20,7 +20,7 @@ class Numerics
     private int|null $precision;
     /** @var int $digits Relevant digits for floats */
     private int $digits;
-    /** @var array $localization Localization data */
+    /** @var array<string, mixed> $localization Localization data */
     private array $localization;
 
     /**
@@ -44,10 +44,10 @@ class Numerics
      */
     public function setLocale(string $locale): void
     {
-        $original_locale = setlocale(LC_NUMERIC, 0);
+        $originalLocale = setlocale(LC_NUMERIC, '0');
         setlocale(LC_NUMERIC, $locale);
         $this->localization = localeconv();
-        setlocale(LC_NUMERIC, $original_locale);
+        setlocale(LC_NUMERIC, $originalLocale ?: '');
     }
 
     /**
@@ -165,17 +165,17 @@ class Numerics
     public function precision(float $number, bool $wide = false): int
     {
         $numstr = $wide ? sprintf("%.{$this->digits}f", $number) : sprintf("%f", $number);
-        $pos = strrchr(rtrim($numstr, 0), '.');
+        $pos = strrchr(rtrim($numstr, '0'), '.');
         return $pos ? max(0, strlen($pos) - 1) : 0;
     }
 
     /**
      * Numeric parser.
      * Identifies decimal/thousand separator from input rather than assumptions.
-     * @param  int|float|string $numeric  A numeric representation to parse
+     * @param  mixed $numeric  A numeric representation to parse
      * @return float|null                 Return as float (null if parsing failed)
      */
-    public function parse($numeric): float|null
+    public function parse(mixed $numeric): float|null
     {
         $ts_found = false;
 
@@ -190,7 +190,7 @@ class Numerics
         }
 
         // Trim and fix input
-        $numeric = preg_replace(
+        $numeric = (string)preg_replace(
             ['/^([\s+ᐩ⁺₊➕﹢＋]*)/u', '/^([-−₋⁻˗][\s]*)/u', '/[\s]*$/'],
             ['', '-', ''],
             $numeric
