@@ -1,3 +1,5 @@
+<p align="center"><img src="docs/logotype.png" alt="Phrity Util Numerics" width="100%"></p>
+
 [![Build Status](https://github.com/sirn-se/phrity-util-numerics/actions/workflows/acceptance.yml/badge.svg)](https://github.com/sirn-se/phrity-util-numerics/actions)
 [![Coverage Status](https://coveralls.io/repos/github/sirn-se/phrity-util-numerics/badge.svg?branch=main)](https://coveralls.io/github/sirn-se/phrity-util-numerics?branch=main)
 
