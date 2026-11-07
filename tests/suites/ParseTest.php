@@ -89,25 +89,17 @@ class ParseTest extends TestCase
         $this->assertSame(0.0, $numerics->parse('0'));
 
         $this->assertSame(1234.0, $numerics->parse('1234'));
-        $this->assertSame(1234.0, $numerics->parse('1234'));
-        $this->assertSame(1234.0, $numerics->parse('1 234'));
         $this->assertSame(1234.0, $numerics->parse('1 234'));
 
         $this->assertSame(-1234.0, $numerics->parse('-1234'));
-        $this->assertSame(-1234.0, $numerics->parse('-1234'));
-        $this->assertSame(-1234.0, $numerics->parse('-1 234'));
         $this->assertSame(-1234.0, $numerics->parse('-1 234'));
 
         $this->assertSame(1234567.0, $numerics->parse('1234567'));
-        $this->assertSame(1234567.0, $numerics->parse('1234567'));
-        $this->assertSame(1234567.0, $numerics->parse('1 234 567'));
         $this->assertSame(1234567.0, $numerics->parse('1 234 567'));
         $this->assertSame(1234567.0, $numerics->parse('1,234,567'));
         $this->assertSame(1234567.0, $numerics->parse('1.234.567'));
 
         $this->assertSame(-1234567.0, $numerics->parse('-1234567'));
-        $this->assertSame(-1234567.0, $numerics->parse('-1234567'));
-        $this->assertSame(-1234567.0, $numerics->parse('-1 234 567'));
         $this->assertSame(-1234567.0, $numerics->parse('-1 234 567'));
         $this->assertSame(-1234567.0, $numerics->parse('-1,234,567'));
         $this->assertSame(-1234567.0, $numerics->parse('-1.234.567'));
@@ -145,8 +137,6 @@ class ParseTest extends TestCase
         $this->assertSame(-1234567.0, $numerics->parse('˗1.234.567'));
 
         // Plus signs
-        $this->assertSame(1234567.0, $numerics->parse('+1.234.567'));
-        $this->assertSame(1234567.0, $numerics->parse('+1.234.567'));
         $this->assertSame(1234567.0, $numerics->parse('+1.234.567'));
         $this->assertSame(1234567.0, $numerics->parse('ᐩ1.234.567'));
         $this->assertSame(1234567.0, $numerics->parse('⁺1.234.567'));
